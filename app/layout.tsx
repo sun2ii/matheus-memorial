@@ -4,6 +4,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { getDict, type Dict, type Locale } from "@/lib/i18n";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import MobileMenu from "@/components/MobileMenu";
 import WelcomeModal from "@/components/WelcomeModal";
 import enMessages from "@/messages/en.json";
 import idMessages from "@/messages/id.json";
@@ -94,16 +95,8 @@ function Navigation({ locale, dict }: { locale: Locale; dict: Dict }) {
             <LanguageSwitcher locale={locale} />
           </div>
 
-          {/* Mobile: language switcher + guestbook button */}
-          <div className="lg:hidden flex items-center gap-3">
-            <LanguageSwitcher locale={locale} />
-            <a
-              href="#guestbook"
-              className="inline-flex items-center gap-2 bg-blue-950 text-blue-50 text-sm font-medium px-4 py-2 rounded-lg"
-            >
-              {dict.nav.leaveAMemory}
-            </a>
-          </div>
+          {/* Mobile: hamburger menu */}
+          <MobileMenu locale={locale} links={links} leaveAMemory={dict.nav.leaveAMemory} />
         </div>
       </div>
     </nav>
