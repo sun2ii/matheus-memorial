@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "inLovingMemoryOf": "In Loving Memory of",
+    "home": "Home",
+    "story": "His Story",
+    "gallery": "Gallery",
+    "guestbook": "Guestbook",
+    "service": "Service Details",
+    "rsvp": "RSVP",
+    "leaveAMemory": "Leave a Memory"
+  },
+  "hero": {
+    "celebrating": "Celebrating the Life of",
+    "dates": "February 25, 1960 – July 6, 2026",
+    "intro": "Matheus lived with courage, faith, humor, and deep love for family and friends. This space was created to honor his life, share his story, and hold the memories that continue to bloom because of him.",
+    "viewService": "View Memorial Details",
+    "shareAMemory": "Share a Memory"
+  },
+  "story": {
+    "titleLine1": "A Life of Resilience,",
+    "titleLine2": "Love, and Faith",
+    "para1": "Matheus was a fighter, a believer, a dreamer, and a relationship-builder. He lived each day with gratitude and courage, inspiring everyone around him with his kindness, strong faith, and unwavering determination.",
+    "para2": "He cherished his family deeply, valued his friendships, and found joy in the simple moments that made life meaningful. His legacy lives on in the love he gave so freely and the lives he touched so profoundly.",
+    "para3": "Those who knew him remember his warm humor, his steady faith, and his gift for making everyone feel like family. Whether he was behind the wheel of his beloved Jaguars and Range Rovers or resting under the oak trees at home, Matheus found beauty in every day he was given - and he shared it freely with everyone around him.",
+    "para4": "Every year after his transplant was a gift, and Matheus lived like he knew it. He turned hospital rooms into places of laughter, setbacks into stories of hope, and strangers into lifelong friends. Through every battle, his courage showed the people around him what it means to keep fighting - and to keep loving - no matter what comes.",
+    "quote": "He lived fully, loved deeply, and held onto hope through every impossible moment.",
+    "timelineTitle": "Journey of Matheus’ Heart Transplant & Fighting Spirit",
+    "t2018Title": "2018 – A Second Chance at Life",
+    "t2018Body": "After developing heart complications in his mid-to-late 50s, Matheus suffered a silent heart attack and was hospitalized in June 2018 in critical condition. He underwent open-heart surgery, received an LVAD, and five months later received the gift of a 20-year-old donor heart.",
+    "t2018Strong": "On July 22, 2018, he successfully received his heart transplant at UCSF.",
+    "t2024Title": "2024 – Surviving the Impossible",
+    "t2024Body": "In June 2024, while visiting family and friends in Los Angeles, he suffered acute heart transplant rejection. In the ICU, his heart stopped for 26 minutes, yet he survived. Still unconscious, he was airlifted back to UCSF, underwent weeks of intensive treatment, and recovered enough to return home.",
+    "t2024Strong": "",
+    "t2026Title": "2026 – His Final Fight",
+    "t2026Body": "Nearly eight years after his transplant, Matheus experienced severe kidney complications and was admitted to UC Davis Medical Center on June 11, 2026, then transferred to UCSF. After intensive treatment, he asked for one final wish: to return home, ride once more in his beloved Jaguars and Range Rovers, and spend his remaining days under the oak trees he loved, surrounded by family and close friends.",
+    "t2026Strong": "On June 18, 2026, he made the journey home.",
+    "giftTitle": "The Greatest Gift",
+    "giftBody": "Against all expectations, Matheus spent 18 more days at home surrounded by the people, places, and memories he cherished most. Those days were filled with love, laughter, visitors, favorite foods, and moments that became lifelong memories. In the end, perhaps his greatest miracle was being given the chance to spend his final days exactly where he wanted to be: at home,",
+    "giftStrong": "surrounded by love."
+  },
+  "gallery": {
+    "title": "Meaningful Memories",
+    "photoAlt": "Memory of Matheus",
+    "comingSoon": "Photo coming soon",
+    "comingSoonNote": "Photos will be added soon - check back to see moments from Matheus’ life."
+  },
+  "guestbook": {
+    "formTitle": "Share a Memory, Prayer, or Message of Love",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your full name",
+    "emailLabel": "Email",
+    "emailOptional": "(optional)",
+    "emailPlaceholder": "you@example.com",
+    "messageLabel": "Your Memory / Prayer",
+    "messagePlaceholder": "Share your thoughts, memories, or message...",
+    "reviewButton": "Review Message",
+    "sending": "Sending...",
+    "reviewTitle": "Review Your Message",
+    "reviewSubtitle": "It will be visible to everyone who visits this memorial.",
+    "goBack": "Go Back & Edit",
+    "confirmSend": "Confirm & Send",
+    "success": "Thank you for sharing your memory.",
+    "listTitle": "Guestbook",
+    "empty": "Be the first to share a memory or message of love.",
+    "errorName": "Please enter your name",
+    "errorEmail": "Please enter a valid email address",
+    "errorMessage": "Please write at least 10 characters",
+    "errorGeneric": "Please check your message and try again.",
+    "errorSubmit": "Failed to submit message. Please try again."
+  },
+  "service": {
+    "detailsTitle": "Service Details",
+    "dateTimeLabel": "Date / Time",
+    "locationLabel": "Location",
+    "date": "Sunday, July 19th, 2026",
+    "time": "10:00am ",
+    "locationName": "Mount Vernon Memorial Park at The Chapel",
+    "locationAddress": "8201 Greenback Ln, Fair Oaks, CA 95628",
+    "comfortTitle": "A Message of Comfort",
+    "comfortQuote": "“The Lord is close to the brokenhearted and saves those who are crushed in spirit.”",
+    "comfortRef": "- Psalm 34:18",
+    "familyTitle": "A Note from the Family",
+    "familyNote": "Thank you for your prayers, presence, and love during this time. Your kindness means more than words can express."
+  },
+  "footer": {
+    "inLovingMemoryOf": "In Loving Memory of",
+    "rememberedWithLove": "Forever remembered with love.",
+    "rights": "© 2026 Matheus Basuni Memorial. All rights reserved."
+  },
+  "welcome": {
+    "title": "Welcome",
+    "intro": "This memorial celebrates the life of Matheus Basuni (February 25, 1960 – July 6, 2026) - a fighter, a believer, and a beloved husband, father, and friend. Here you can read his story, view photos, and leave a message for the family.",
+    "chooseLanguage": "Choose your language",
+    "attendingQuestion": "Will you be attending the memorial service?",
+    "attendingHint": "Leave your email so the family knows to expect you.",
+    "emailPlaceholder": "you@example.com",
+    "attendButton": "I'll be attending",
+    "attendThanks": "Thank you - the family looks forward to seeing you.",
+    "alreadyRsvped": "This email has already been registered.",
+    "continueButton": "Continue to the memorial"
+  }
+}

@@ -1,4 +1,5 @@
 import { sql } from '@/lib/db';
+import type { Dict, Locale } from '@/lib/i18n';
 
 interface GuestbookEntry {
   id: string;
@@ -22,8 +23,8 @@ async function getGuestbookEntries(): Promise<GuestbookEntry[]> {
   }
 }
 
-function formatDate(date: Date): string {
-  return new Date(date).toLocaleDateString('en-US', {
+function formatDate(date: Date, locale: Locale): string {
+  return new Date(date).toLocaleDateString(locale === 'id' ? 'id-ID' : 'en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
@@ -40,20 +41,26 @@ function HeartBadge() {
   );
 }
 
-export default async function GuestbookMessages() {
+export default async function GuestbookMessages({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dict;
+}) {
   const entries = await getGuestbookEntries();
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-blue-100">
-      <h3 className="font-serif text-2xl text-blue-950 text-center mb-1">Guestbook</h3>
+      <h3 className="font-serif text-2xl text-blue-950 text-center mb-1">
+        {dict.guestbook.listTitle}
+      </h3>
       <div className="flex justify-center mb-6">
         <span className="w-1.5 h-1.5 rotate-45 bg-amber-500" />
       </div>
 
       {entries.length === 0 ? (
-        <p className="text-slate-500 text-center py-10 italic">
-          Be the first to share a memory or message of love.
-        </p>
+        <p className="text-slate-500 text-center py-10 italic">{dict.guestbook.empty}</p>
       ) : (
         <div className="space-y-4 max-h-[560px] overflow-y-auto pr-2">
           {entries.map((entry) => (
@@ -67,10 +74,10 @@ export default async function GuestbookMessages() {
                   {entry.message}
                 </p>
                 <p className="text-right text-sm text-blue-950 font-medium">
-                  &mdash; {entry.visitor_name}
+                  - {entry.visitor_name}
                 </p>
                 <p className="text-right text-xs text-slate-400">
-                  {formatDate(entry.created_at)}
+                  {formatDate(entry.created_at, locale)}
                 </p>
               </div>
             </div>

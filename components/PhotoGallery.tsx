@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Image from 'next/image';
+import type { Dict } from '@/lib/i18n';
 
 function getGalleryPhotos(): string[] {
   try {
@@ -15,7 +16,7 @@ function getGalleryPhotos(): string[] {
   }
 }
 
-function PlaceholderTile({ index }: { index: number }) {
+function PlaceholderTile({ index, label }: { index: number; label: string }) {
   return (
     <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-blue-100 via-slate-100 to-blue-50 border border-blue-100 shadow-sm flex items-center justify-center">
       <div className="text-center px-4">
@@ -30,21 +31,22 @@ function PlaceholderTile({ index }: { index: number }) {
           <circle cx="9" cy="10" r="1.5" />
           <path d="M3 17l5-4 3 2.5L16 11l5 4" />
         </svg>
-        <p className="text-xs text-blue-400">Photo coming soon</p>
+        <p className="text-xs text-blue-400">{label}</p>
         <span className="sr-only">Gallery placeholder {index + 1}</span>
       </div>
     </div>
   );
 }
 
-export default function PhotoGallery() {
+export default function PhotoGallery({ dict }: { dict: Dict }) {
+  const t = dict.gallery;
   const photos = getGalleryPhotos();
 
   return (
     <section id="gallery" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#eff6ff]">
       <div className="max-w-7xl mx-auto">
         <h2 className="font-serif text-3xl sm:text-4xl text-blue-950 text-center mb-2">
-          Meaningful Memories
+          {t.title}
         </h2>
         <div className="flex items-center justify-center gap-2 mb-12">
           <span className="h-px w-10 bg-amber-400" />
@@ -61,7 +63,7 @@ export default function PhotoGallery() {
                 >
                   <Image
                     src={src}
-                    alt="Memory of Matheus"
+                    alt={t.photoAlt}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 17vw"
                     className="object-cover hover:scale-105 transition-transform duration-300"
@@ -69,15 +71,12 @@ export default function PhotoGallery() {
                 </div>
               ))
             : Array.from({ length: 6 }).map((_, i) => (
-                <PlaceholderTile key={i} index={i} />
+                <PlaceholderTile key={i} index={i} label={t.comingSoon} />
               ))}
         </div>
 
         {photos.length === 0 && (
-          <p className="text-center text-sm text-blue-400 mt-8 italic">
-            Photos will be added soon &mdash; check back to see moments from
-            Matheus&rsquo; life.
-          </p>
+          <p className="text-center text-sm text-blue-400 mt-8 italic">{t.comingSoonNote}</p>
         )}
       </div>
     </section>

@@ -20,6 +20,12 @@ html {
     color: #1e293b;
   }
 
+  /* Tailwind v4 preflight leaves buttons at cursor: default */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
   /* Smooth scroll offset for fixed nav */
   section {
     scroll-margin-top: 80px;

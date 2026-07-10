@@ -5,6 +5,7 @@ import LifeStory from '@/components/LifeStory';
 import PhotoGallery from '@/components/PhotoGallery';
 import GuestbookForm from '@/components/GuestbookForm';
 import GuestbookMessages from '@/components/GuestbookMessages';
+import { getDict } from '@/lib/i18n';
 
 function GuestbookSkeleton() {
   return (
@@ -18,30 +19,32 @@ function GuestbookSkeleton() {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const { locale, dict } = await getDict();
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <Hero />
+      <Hero locale={locale} dict={dict} />
 
       {/* Life story + timeline */}
-      <LifeStory />
+      <LifeStory dict={dict} />
 
       {/* Photo gallery */}
-      <PhotoGallery />
+      <PhotoGallery dict={dict} />
 
       {/* Guestbook */}
       <section id="guestbook" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-start">
-          <GuestbookForm />
+          <GuestbookForm dict={dict.guestbook} />
           <Suspense fallback={<GuestbookSkeleton />}>
-            <GuestbookMessages />
+            <GuestbookMessages locale={locale} dict={dict} />
           </Suspense>
         </div>
       </section>
 
       {/* Service details / comfort / family note */}
-      <ServiceDetails />
+      <ServiceDetails dict={dict} />
     </div>
   );
 }

@@ -1,48 +1,4 @@
-const timeline = [
-  {
-    icon: 'heart',
-    title: '2018 – A Second Chance at Life',
-    body: (
-      <>
-        After developing heart complications in his mid-to-late 50s, Matheus
-        suffered a silent heart attack and was hospitalized in June 2018 in
-        critical condition. He underwent open-heart surgery, received an LVAD,
-        and five months later received the gift of a 20-year-old donor heart.{' '}
-        <strong className="text-blue-950">
-          On July 22, 2018, he successfully received his heart transplant at UCSF.
-        </strong>
-      </>
-    ),
-  },
-  {
-    icon: 'cross',
-    title: '2024 – Surviving the Impossible',
-    body: (
-      <>
-        In June 2024, while visiting family and friends in Los Angeles, he
-        suffered acute heart transplant rejection. In the ICU, his heart stopped
-        for 26 minutes, yet he survived. Still unconscious, he was airlifted
-        back to UCSF, underwent weeks of intensive treatment, and recovered
-        enough to return home.
-      </>
-    ),
-  },
-  {
-    icon: 'leaf',
-    title: '2026 – His Final Fight',
-    body: (
-      <>
-        Nearly eight years after his transplant, Matheus experienced severe
-        kidney complications and was admitted to UC Davis Medical Center on
-        June 11, 2026, then transferred to UCSF. After intensive treatment, he
-        asked for one final wish: to return home, ride once more in his beloved
-        white Jaguar XJ8, and spend his remaining days under the oak trees he
-        loved, surrounded by family and close friends.{' '}
-        <strong className="text-blue-950">On June 18, 2026, he made the journey home.</strong>
-      </>
-    ),
-  },
-];
+import type { Dict } from '@/lib/i18n';
 
 function TimelineIcon({ name }: { name: string }) {
   const common = 'w-5 h-5 text-white';
@@ -67,40 +23,39 @@ function TimelineIcon({ name }: { name: string }) {
   );
 }
 
-export default function LifeStory() {
+export default function LifeStory({ dict }: { dict: Dict }) {
+  const t = dict.story;
+
+  const timeline = [
+    { icon: 'heart', title: t.t2018Title, body: t.t2018Body, strong: t.t2018Strong },
+    { icon: 'cross', title: t.t2024Title, body: t.t2024Body, strong: t.t2024Strong },
+    { icon: 'leaf', title: t.t2026Title, body: t.t2026Body, strong: t.t2026Strong },
+  ];
+
   return (
     <section id="story" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-5 gap-12 lg:gap-16">
         {/* Left: A Life of Resilience */}
         <div className="lg:col-span-2">
           <h2 className="font-serif text-3xl sm:text-4xl text-blue-950 leading-snug mb-3">
-            A Life of Resilience,
+            {t.titleLine1}
             <br />
-            Love, and Faith
+            {t.titleLine2}
           </h2>
           <div className="w-20 h-0.5 bg-amber-500 mb-8" />
 
           <div className="space-y-5 text-slate-700 leading-relaxed">
-            <p>
-              Matheus was a fighter, a believer, a dreamer, and a
-              relationship-builder. He lived each day with gratitude and
-              courage, inspiring everyone around him with his kindness, strong
-              faith, and unwavering determination.
-            </p>
-            <p>
-              He cherished his family deeply, valued his friendships, and found
-              joy in the simple moments that made life meaningful. His legacy
-              lives on in the love he gave so freely and the lives he touched so
-              profoundly.
-            </p>
+            <p>{t.para1}</p>
+            <p>{t.para2}</p>
+            <p>{t.para3}</p>
+            <p>{t.para4}</p>
           </div>
 
           {/* Quote card */}
           <div className="mt-10 bg-[#fdfbf5] border border-amber-200 rounded-xl p-6 sm:p-8 shadow-sm">
             <span className="font-serif text-5xl text-amber-500 leading-none">&ldquo;</span>
             <p className="font-serif italic text-lg text-blue-950 -mt-3">
-              He lived fully, loved deeply, and held onto hope through every
-              impossible moment.&rdquo;
+              {t.quote}&rdquo;
             </p>
           </div>
         </div>
@@ -108,7 +63,7 @@ export default function LifeStory() {
         {/* Right: Timeline */}
         <div className="lg:col-span-3">
           <h2 className="font-serif text-2xl sm:text-3xl text-blue-950 text-center mb-2">
-            Journey of Matheus&rsquo; Heart Transplant &amp; Fighting Spirit
+            {t.timelineTitle}
           </h2>
           <div className="flex justify-center mb-10">
             <span className="w-2 h-2 rotate-45 bg-amber-500" />
@@ -130,6 +85,12 @@ export default function LifeStory() {
                     </h3>
                     <p className="text-sm sm:text-[15px] text-slate-700 leading-relaxed">
                       {item.body}
+                      {item.strong && (
+                        <>
+                          {' '}
+                          <strong className="text-blue-950">{item.strong}</strong>
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -144,16 +105,10 @@ export default function LifeStory() {
                 </div>
                 <div className="flex-1 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 shadow-sm">
                   <h3 className="font-serif text-lg text-blue-950 font-semibold mb-2">
-                    The Greatest Gift
+                    {t.giftTitle}
                   </h3>
                   <p className="text-sm sm:text-[15px] text-slate-700 leading-relaxed">
-                    Against all expectations, Matheus spent 18 more days at home
-                    surrounded by the people, places, and memories he cherished
-                    most. Those days were filled with love, laughter, visitors,
-                    favorite foods, and moments that became lifelong memories.
-                    In the end, perhaps his greatest miracle was being given the
-                    chance to spend his final days exactly where he wanted to
-                    be: at home, <strong className="text-blue-950">surrounded by love.</strong>
+                    {t.giftBody} <strong className="text-blue-950">{t.giftStrong}</strong>
                   </p>
                 </div>
               </div>
