@@ -47,21 +47,18 @@ function ArrowButton({
 export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Strings }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [index, setIndex] = useState(0);
+  const stripRef = useRef<HTMLDivElement>(null);
   const [uploading, setUploading] = useState(false);
   const [notice, setNotice] = useState<'success' | 'error' | 'wrong-captcha' | null>(null);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [answer, setAnswer] = useState('');
 
-  const count = photos.length;
-  const current = count > 0 ? photos[Math.min(index, count - 1)] : null;
-
-  function prev() {
-    setIndex((i) => (i - 1 + count) % count);
-  }
-
-  function next() {
-    setIndex((i) => (i + 1) % count);
+  function scroll(direction: 'left' | 'right') {
+    const strip = stripRef.current;
+    if (!strip) return;
+    const tile = strip.querySelector('div');
+    const step = tile ? tile.clientWidth + 16 : 336;
+    strip.scrollBy({ left: direction === 'left' ? -step : step, behavior: 'smooth' });
   }
 
   async function handleUploadClick() {
@@ -103,7 +100,6 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
       setChallenge(null);
       setAnswer('');
       setNotice('success');
-      setIndex(0);
       router.refresh();
     } catch {
       setNotice('error');
@@ -113,24 +109,35 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      {current ? (
-        <div className="flex items-center gap-3 sm:gap-5">
-          <ArrowButton direction="left" onClick={prev} label="Previous photo" />
+    <div className="max-w-6xl mx-auto">
+      {photos.length > 0 ? (
+        <div className="flex items-center gap-3 sm:gap-4">
+          <ArrowButton direction="left" onClick={() => scroll('left')} label="Scroll photos left" />
 
-          <div className="relative flex-1 aspect-[4/3] rounded-2xl overflow-hidden bg-blue-950/5 border border-blue-100 shadow-lg">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={current.src}
-              alt={current.alt}
-              className="absolute inset-0 w-full h-full object-contain"
-            />
+          <div
+            ref={stripRef}
+            className="flex-1 flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {photos.map((photo) => (
+              <div
+                key={photo.src}
+                className="flex-shrink-0 w-64 sm:w-80 aspect-square snap-start rounded-xl overflow-hidden bg-white border border-blue-100 shadow-md"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
 
-          <ArrowButton direction="right" onClick={next} label="Next photo" />
+          <ArrowButton direction="right" onClick={() => scroll('right')} label="Scroll photos right" />
         </div>
       ) : (
-        <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-100 via-slate-100 to-blue-50 border border-blue-100 shadow-sm flex items-center justify-center">
+        <div className="max-w-xl mx-auto aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-100 via-slate-100 to-blue-50 border border-blue-100 shadow-sm flex items-center justify-center">
           <div className="text-center px-6">
             <svg
               viewBox="0 0 24 24"
@@ -147,12 +154,6 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
             <p className="text-xs text-blue-400/80 italic mt-1">{t.comingSoonNote}</p>
           </div>
         </div>
-      )}
-
-      {count > 1 && (
-        <p className="text-center text-sm text-blue-950/60 mt-4">
-          {Math.min(index, count - 1) + 1} / {count}
-        </p>
       )}
 
       <div className="text-center mt-6">
