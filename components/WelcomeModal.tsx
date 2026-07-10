@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { setLocaleCookie } from '@/components/LanguageSwitcher';
-import RsvpForm from '@/components/RsvpForm';
 import { OPEN_WELCOME_EVENT } from '@/components/OpenModalButton';
 import type { Dict, Locale } from '@/lib/i18n';
 
@@ -126,11 +125,6 @@ export default function WelcomeModal({
               <p className="text-slate-500">{service.locationAddress}</p>
             </div>
           </div>
-        </div>
-
-        {/* RSVP */}
-        <div className="border-t border-amber-200 pt-5">
-          <RsvpForm locale={lang} t={t} />
         </div>
 
         <button

@@ -7,8 +7,3 @@ export const guestbookSchema = z.object({
 });
 
 export type GuestbookEntry = z.infer<typeof guestbookSchema>;
-
-export const attendeeSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  language: z.enum(['en', 'id']).optional(),
-});

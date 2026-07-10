@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-cinzel);
+  --font-serif: var(--font-cinzel);
 }
 
 /* NOTE: do not add an unlayered `* { margin: 0; padding: 0 }` reset here.
@@ -16,7 +16,7 @@ html {
 
 @layer base {
   body {
-    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    font-family: var(--font-cinzel), Georgia, serif;
     color: #1e293b;
   }
 
@@ -33,7 +33,7 @@ html {
 }
 
 .font-serif {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-cinzel), Georgia, serif;
 }
 
 /* Custom scrollbar for guestbook messages */

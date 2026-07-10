@@ -3,46 +3,29 @@
     "inLovingMemoryOf": "Dalam Kenangan Penuh Kasih",
     "home": "Beranda",
     "story": "Kisahnya",
-    "gallery": "Galeri",
     "guestbook": "Buku Tamu",
-    "service": "Detail Acara",
-    "rsvp": "RSVP",
-    "leaveAMemory": "Tinggalkan Kenangan"
+    "donations": "Donasi"
   },
   "hero": {
     "celebrating": "Merayakan Kehidupan",
     "dates": "25 Februari 1960 – 6 Juli 2026",
-    "intro": "Matheus hidup dengan keberanian, iman, humor, dan kasih yang mendalam bagi keluarga serta sahabat. Ruang ini dibuat untuk menghormati hidupnya, membagikan kisahnya, dan menyimpan kenangan yang terus bertumbuh karenanya.",
-    "viewService": "Lihat Detail Memorial",
-    "shareAMemory": "Bagikan Kenangan"
+    "intro": "Matheus hidup dengan keberanian, iman, humor, dan kasih yang mendalam bagi keluarga serta sahabat. Ruang ini dibuat untuk menghormati hidupnya, membagikan kisahnya, dan menyimpan kenangan yang terus bertumbuh karenanya."
   },
   "story": {
-    "titleLine1": "Kehidupan yang Penuh Ketangguhan,",
-    "titleLine2": "Kasih, dan Iman",
-    "para1": "Matheus adalah seorang pejuang, orang yang beriman, pemimpi, dan pembangun hubungan. Ia menjalani setiap hari dengan rasa syukur dan keberanian, menginspirasi semua orang di sekitarnya dengan kebaikan hati, iman yang kuat, dan tekad yang tak tergoyahkan.",
-    "para2": "Ia sangat menyayangi keluarganya, menghargai persahabatannya, dan menemukan sukacita dalam momen-momen sederhana yang membuat hidup bermakna. Warisannya tetap hidup dalam kasih yang ia berikan dengan tulus dan dalam kehidupan orang-orang yang ia sentuh begitu dalam.",
-    "para3": "Mereka yang mengenalnya mengingat humornya yang hangat, imannya yang teguh, dan bakatnya membuat setiap orang merasa seperti keluarga. Baik saat mengendarai mobil Jaguar dan Range Rover kesayangannya maupun beristirahat di bawah pohon-pohon ek di rumahnya, Matheus menemukan keindahan di setiap hari yang diberikan kepadanya - dan membagikannya dengan tulus kepada orang-orang di sekitarnya.",
-    "para4": "Setiap tahun setelah transplantasinya adalah anugerah, dan Matheus menjalaninya dengan penuh kesadaran akan hal itu. Ia mengubah kamar rumah sakit menjadi tempat penuh tawa, kemunduran menjadi kisah pengharapan, dan orang asing menjadi sahabat seumur hidup. Dalam setiap perjuangan, keberaniannya menunjukkan kepada orang-orang di sekitarnya arti terus berjuang - dan terus mengasihi - apa pun yang terjadi.",
-    "quote": "Ia hidup sepenuhnya, mengasihi dengan mendalam, dan berpegang pada harapan di setiap saat yang mustahil.",
     "timelineTitle": "Perjalanan Transplantasi Jantung & Semangat Juang Matheus",
+    "timelineIntro": "Perjalanan Matheus melewati gagal jantung ditandai oleh ketangguhan luar biasa dan momen-momen yang bagi banyak orang tampak sebagai mukjizat. Meski menghadapi berbagai komplikasi yang mengancam nyawa dan berkali-kali dinyatakan bahwa kondisinya tidak dapat disembuhkan, tekadnya untuk terus berjuang menjadi cerminan dirinya yang sesungguhnya. Seorang pribadi yang hidup sepenuhnya, mengasihi dengan mendalam, dan berpegang pada harapan di setiap saat yang mustahil.",
     "t2018Title": "2018 – Kesempatan Kedua untuk Hidup",
-    "t2018Body": "Setelah mengalami komplikasi jantung di usia akhir 50-an, Matheus mengalami serangan jantung tanpa gejala dan dirawat di rumah sakit pada Juni 2018 dalam kondisi kritis. Ia menjalani operasi jantung terbuka, menerima alat bantu jantung (LVAD), dan lima bulan kemudian menerima anugerah jantung dari seorang donor berusia 20 tahun.",
-    "t2018Strong": "Pada 22 Juli 2018, ia berhasil menjalani transplantasi jantung di UCSF.",
+    "t2018Body": "Setelah mengalami komplikasi jantung di usia akhir 50-an, Matheus mengalami serangan jantung tanpa gejala dan dirawat di Unit Gawat Darurat serta Unit Perawatan Intensif pada Juni 2018 dalam kondisi kritis.\n\nIa menjalani operasi jantung terbuka dan menerima Left Ventricular Assist Device (LVAD) — pompa mekanis yang membantu jantungnya yang melemah mengalirkan darah sembari menunggu transplantasi. Lima bulan kemudian, ia menerima anugerah luar biasa berupa jantung dari seorang donor berusia 20 tahun dan menjalani operasi jantung terbuka kedua.",
+    "t2018Strong": "Pada 22 Juli 2018, Matheus berhasil menjalani transplantasi jantung di UCSF dan memulai babak kehidupan yang sepenuhnya baru.",
     "t2024Title": "2024 – Bertahan dari yang Mustahil",
-    "t2024Body": "Pada Juni 2024, saat mengunjungi keluarga dan sahabat di Los Angeles, ia mengalami penolakan akut terhadap jantung transplannya. Di ICU, jantungnya berhenti selama 26 menit, namun ia bertahan hidup. Dalam keadaan belum sadar, ia diterbangkan kembali ke UCSF, menjalani perawatan intensif selama berminggu-minggu, dan pulih hingga dapat kembali ke rumah.",
+    "t2024Body": "Saat mengunjungi keluarga dan sahabat di Los Angeles, Matheus mengalami penolakan akut terhadap jantung transplannya pada Juni 2024.\n\nDi ICU, ia mengalami henti jantung. Jantungnya berhenti selama 26 menit, namun melawan segala kemungkinan, ia bertahan hidup.\n\nDalam keadaan belum sadar, ia diterbangkan kembali ke UCSF, menjalani perawatan intensif selama berminggu-minggu, dan akhirnya pulih hingga dapat kembali ke rumah.",
     "t2024Strong": "",
     "t2026Title": "2026 – Perjuangan Terakhirnya",
-    "t2026Body": "Hampir delapan tahun setelah transplantasinya, Matheus mengalami komplikasi ginjal yang berat dan dirawat di UC Davis Medical Center pada 11 Juni 2026, lalu dipindahkan ke UCSF. Setelah perawatan intensif, ia menyampaikan satu permintaan terakhir: pulang ke rumah, sekali lagi mengendarai mobil Jaguar dan Range Rover kesayangannya, dan menghabiskan hari-hari terakhirnya di bawah pohon-pohon ek yang ia cintai, dikelilingi keluarga dan sahabat terdekat.",
-    "t2026Strong": "Pada 18 Juni 2026, ia menempuh perjalanan pulang ke rumah.",
+    "t2026Body": "Hampir delapan tahun setelah transplantasi jantungnya, Matheus mulai mengalami komplikasi ginjal yang berat seiring menurunnya kondisi tubuhnya. Selama berbulan-bulan ia berjuang melawan penumpukan cairan yang signifikan sebelum dirawat di UC Davis Medical Center pada 11 Juni 2026. Keesokan harinya, ia dipindahkan kembali ke UCSF untuk perawatan khusus.\n\nSelama dirawat di Unit Perawatan Jantung Intensif (ICCU), ia menjalani pengeluaran cairan, dialisis berkelanjutan (Continuous Renal Replacement Therapy, atau CRRT), dan plasmaferesis selama beberapa hari. Ketika kondisinya memburuk, ia tidak lagi dapat makan dan memerlukan selang makanan untuk nutrisi.\n\nSetelah tepat satu minggu di ICCU, tim medisnya menyimpulkan bahwa perawatan lebih lanjut tidak akan lagi mengubah keadaan. Mereka menawarkan dua pilihan: tetap di ICCU dan membiarkan semuanya berjalan secara alami, atau beralih ke perawatan hospis rawat inap.\n\nNamun, Matheus meminta pilihan ketiga.\n\nPermintaan terakhirnya adalah pulang ke rumah. Untuk sekali lagi mengendarai Jaguar XJ8 putih kesayangannya, menghabiskan hari-hari terakhirnya di bawah pohon-pohon ek berusia ratusan tahun yang sangat ia cintai, dan dikelilingi keluarga serta sahabat-sahabat terdekatnya.\n\nPara dokternya sangat tidak menyarankan hal itu, menjelaskan bahwa kondisinya terlalu tidak stabil untuk meninggalkan ICU dan bahwa ia tidak akan lagi mendapatkan obat-obatan serta dukungan intensif yang menopang hidupnya.\n\nNamun, setia pada cara ia menjalani seluruh hidupnya, Matheus menolak menyerah pada hal yang paling berarti baginya. Dengan tekad, kegigihan, dan pesonanya yang khas (disertai sedikit rayuan jenaka kepada staf rumah sakit), ia berhasil meyakinkan tim medis untuk mengabulkan permintaan terakhirnya.",
+    "t2026Strong": "Pada 18 Juni 2026, ia menempuh perjalanan dua setengah jam pulang ke rumahnya di Sacramento.",
     "giftTitle": "Anugerah Terindah",
-    "giftBody": "Di luar segala dugaan, Matheus menghabiskan 18 hari lagi di rumah, dikelilingi orang-orang, tempat, dan kenangan yang paling ia sayangi. Hari-hari itu dipenuhi kasih, tawa, kunjungan, makanan kesukaan, dan momen-momen yang menjadi kenangan seumur hidup. Pada akhirnya, mungkin mukjizat terbesarnya adalah diberi kesempatan menghabiskan hari-hari terakhirnya tepat di tempat yang ia inginkan: di rumah,",
-    "giftStrong": "dikelilingi oleh kasih."
-  },
-  "gallery": {
-    "title": "Kenangan yang Bermakna",
-    "photoAlt": "Kenangan Matheus",
-    "comingSoon": "Foto segera hadir",
-    "comingSoonNote": "Foto akan segera ditambahkan - kunjungi kembali untuk melihat momen-momen kehidupan Matheus."
+    "giftBody": "Di luar segala dugaan, Matheus menghabiskan 18 hari lagi di rumah, dikelilingi orang-orang, tempat, dan kenangan yang paling ia sayangi.\n\nHari-hari itu dipenuhi kasih, tawa, percakapan, makanan kesukaannya, kunjungan yang tak terhitung, dan momen-momen berharga yang menjadi kenangan seumur hidup bagi semua orang yang beruntung dapat membagikannya bersamanya.\n\nMatheus akan selalu dikenang sebagai seorang pejuang, orang yang beriman, pribadi yang berdedikasi melayani sesama, pembangun hubungan, pemimpi, dan inspirasi bagi semua orang yang menyaksikan tekadnya yang tak tergoyahkan untuk merangkul kehidupan — bahkan di hadapan kemungkinan yang mustahil.\n\nSepanjang perjalanannya, ada tiga momen ketika segala kemungkinan mengatakan kisahnya seharusnya berakhir. Namun setiap kali, ia menemukan cara untuk terus melangkah. Entah orang menyebutnya mukjizat, berkat, atau semata-mata kekuatan luar biasa dari jiwa manusia, momen-momen itu memberinya waktu yang berharga. Waktu untuk menciptakan lebih banyak kenangan, mempererat hubungan, dan terus menyentuh kehidupan orang-orang di sekitarnya.\n\nPada akhirnya, mungkin mukjizat terbesarnya bukan sekadar bertahan dari yang mustahil — melainkan diberi kesempatan menghabiskan hari-hari terakhirnya tepat di tempat yang ia inginkan: di rumah, dikelilingi orang-orang dan tempat-tempat yang paling ia cintai.",
+    "giftStrong": "Begitulah cara Matheus memilih untuk hidup. Dan begitulah ia akan selalu dikenang."
   },
   "guestbook": {
     "formTitle": "Bagikan Kenangan, Doa, atau Pesan Kasih",
@@ -73,30 +56,37 @@
     "dateTimeLabel": "Tanggal / Waktu",
     "locationLabel": "Lokasi",
     "date": "Minggu, 19 Juli 2026",
-    "time": "10.00",
-    "locationName": "Mount Vernon Memorial Park at The Chapel",
+    "time": "10.00 – 14.00 PST",
+    "locationName": "Mount Vernon Church of the Valley",
     "locationAddress": "8201 Greenback Ln, Fair Oaks, CA 95628",
+    "caLabel": "California",
+    "caDate": "Minggu, 19 Juli 2026",
+    "caTime": "10.00 – 14.00 PST",
+    "jakartaLabel": "Jakarta (hanya virtual)",
+    "jakartaDate": "Senin, 20 Juli 2026",
+    "jakartaTime": "00.00 – 04.00 WIB",
+    "zoomLinkLabel": "Zoom Link",
+    "meetingId": "Meeting ID: 837 9244 2464",
+    "passcode": "Kode Sandi: 02251960",
     "comfortTitle": "Pesan Penghiburan",
     "comfortQuote": "“TUHAN itu dekat kepada orang-orang yang patah hati, dan Ia menyelamatkan orang-orang yang remuk jiwanya.”",
     "comfortRef": "- Mazmur 34:19 (TB)",
     "familyTitle": "Pesan dari Keluarga",
-    "familyNote": "Terima kasih atas doa, kehadiran, dan kasih Anda selama masa ini. Kebaikan Anda sungguh berarti melebihi kata-kata."
+    "familyNote": "Terima kasih atas doa, kehadiran, dan kasih Anda selama masa ini. Kebaikan Anda sungguh berarti melebihi kata-kata.",
+    "donationsTitle": "Dukungan untuk Keluarga",
+    "donationsIntro": "Bagi yang bertanya bagaimana dapat memberikan dukungan, donasi diterima dengan tulus namun tidak pernah diharapkan.",
+    "donationsVia": "Jika Anda ingin berkontribusi, Anda dapat melakukannya melalui:",
+    "donationsComingSoon": "Kode QR segera hadir"
   },
   "footer": {
     "inLovingMemoryOf": "Dalam Kenangan Penuh Kasih",
-    "rememberedWithLove": "Selamanya dikenang dengan kasih.",
+    "rememberedWithLove": "Lakukan Hal-Hal Kecil dengan Kasih yang Besar - Bunda Teresa",
     "rights": "© 2026 Memorial Matheus Basuni. Hak cipta dilindungi."
   },
   "welcome": {
     "title": "Selamat Datang",
     "intro": "Memorial ini merayakan kehidupan Matheus Basuni (25 Februari 1960 – 6 Juli 2026) - seorang pejuang, orang yang beriman, serta suami, ayah, dan sahabat yang terkasih. Di sini Anda dapat membaca kisahnya, melihat foto-foto, dan meninggalkan pesan untuk keluarga.",
     "chooseLanguage": "Pilih bahasa Anda",
-    "attendingQuestion": "Apakah Anda akan menghadiri acara memorial?",
-    "attendingHint": "Tinggalkan email Anda agar keluarga tahu Anda akan hadir.",
-    "emailPlaceholder": "anda@contoh.com",
-    "attendButton": "Saya akan hadir",
-    "attendThanks": "Terima kasih - keluarga menantikan kehadiran Anda.",
-    "alreadyRsvped": "Email ini sudah terdaftar.",
     "continueButton": "Lanjutkan ke memorial"
   }
 }

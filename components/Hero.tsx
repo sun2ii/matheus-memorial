@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import RsvpForm from '@/components/RsvpForm';
-import OpenModalButton from '@/components/OpenModalButton';
 import type { Dict, Locale } from '@/lib/i18n';
 
 export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
@@ -65,28 +63,45 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
               {t.intro}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <OpenModalButton className="inline-flex items-center gap-2 bg-blue-950 hover:bg-blue-900 text-blue-50 font-medium px-6 py-3 rounded-lg shadow-lg transition-colors">
-                {t.viewService}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                  <rect x="3" y="4" width="18" height="18" rx="2" />
-                  <path d="M16 2v4M8 2v4M3 10h18" />
-                </svg>
-              </OpenModalButton>
-              <a
-                href="#guestbook"
-                className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-blue-950 font-medium px-6 py-3 rounded-lg border border-blue-200 shadow transition-colors"
-              >
-                {t.shareAMemory}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                  <path d="M12 21C7 16.5 3 13.2 3 9.1 3 6.3 5.2 4 8 4c1.6 0 3.1.8 4 2 0.9-1.2 2.4-2 4-2 2.8 0 5 2.3 5 5.1 0 4.1-4 7.4-9 11.9z" />
-                </svg>
-              </a>
-            </div>
+            {/* Service details card */}
+            <div className="relative max-w-xl mx-auto rounded-xl overflow-hidden shadow-xl border border-amber-200 bg-gradient-to-b from-[#fdfbf5] to-amber-50">
+              <div className="relative z-10 px-5 py-6 sm:px-8 text-center text-blue-950">
+                <a
+                  href="https://www.google.com/maps/place/Mount+Vernon+Memorial+Park+%26+Mortuary/@38.6795943,-121.2585006,17z/data=!4m6!3m5!1s0x809ae09c7a3457ff:0xda89dbee85b13492!8m2!3d38.6804409!4d-121.2579606!16s%2Fg%2F1v_w2m35?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-serif text-lg sm:text-xl font-bold text-blue-800 underline underline-offset-2 hover:text-blue-600 transition-colors"
+                >
+                  {dict.service.locationName}
+                </a>
+                <p className="font-serif font-semibold mt-1">{dict.service.locationAddress}</p>
 
-            {/* RSVP */}
-            <div className="mt-8 max-w-md mx-auto bg-white/85 backdrop-blur-sm border border-amber-200 rounded-xl p-5 shadow-lg">
-              <RsvpForm locale={locale} t={dict.welcome} />
+                <div className="mt-5 flex items-center justify-center gap-6 sm:gap-10 font-serif">
+                  <div className="flex-1 space-y-0.5">
+                    <p>{dict.service.caLabel}</p>
+                    <p>{dict.service.caDate}</p>
+                    <p>{dict.service.caTime}</p>
+                  </div>
+                  <div className="flex-1 space-y-0.5">
+                    <p>{dict.service.jakartaLabel}</p>
+                    <p>{dict.service.jakartaDate}</p>
+                    <p>{dict.service.jakartaTime}</p>
+                  </div>
+                </div>
+
+                <div className="mt-5 text-sm">
+                  <a
+                    href="https://us06web.zoom.us/j/83792442464?pwd=QaDZju7z990AcJaseeRDbzEITGNNQo.1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors"
+                  >
+                    {dict.service.zoomLinkLabel}
+                  </a>
+                  <p className="font-medium">{dict.service.meetingId}</p>
+                  <p className="font-medium">{dict.service.passcode}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
