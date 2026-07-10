@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import { google } from 'googleapis';
 
 export const DRIVE_FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID ?? '';
@@ -7,13 +5,10 @@ export const DRIVE_FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID ?? '';
 function getCredentials(): { client_email: string; private_key: string } {
   const email = process.env.GOOGLE_CLIENT_EMAIL;
   const key = process.env.GOOGLE_PRIVATE_KEY;
-  if (email && key) {
-    return { client_email: email, private_key: key.replace(/\\n/g, '\n') };
+  if (!email || !key) {
+    throw new Error('Missing GOOGLE_CLIENT_EMAIL or GOOGLE_PRIVATE_KEY env vars');
   }
-  // Local dev fallback: service-account key file (gitignored)
-  const file = path.join(process.cwd(), '.google-drive.json');
-  const json = JSON.parse(fs.readFileSync(file, 'utf8'));
-  return { client_email: json.client_email, private_key: json.private_key };
+  return { client_email: email, private_key: key.replace(/\\n/g, '\n') };
 }
 
 export function getDrive() {
