@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import Hero from '@/components/Hero';
 import ServiceDetails from '@/components/ServiceDetails';
 import LifeStory from '@/components/LifeStory';
+import PhotoGallery from '@/components/PhotoGallery';
 import GuestbookForm from '@/components/GuestbookForm';
 import GuestbookMessages from '@/components/GuestbookMessages';
 import { getDict } from '@/lib/i18n';
@@ -28,6 +29,9 @@ export default async function Home() {
 
       {/* Life story + timeline */}
       <LifeStory dict={dict} />
+
+      {/* Photo gallery */}
+      <PhotoGallery dict={dict} />
 
       {/* Guestbook */}
       <section id="guestbook" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">

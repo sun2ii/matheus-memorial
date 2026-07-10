@@ -27,6 +27,20 @@
     "giftBody": "Di luar segala dugaan, Matheus menghabiskan 18 hari lagi di rumah, dikelilingi orang-orang, tempat, dan kenangan yang paling ia sayangi.\n\nHari-hari itu dipenuhi kasih, tawa, percakapan, makanan kesukaannya, kunjungan yang tak terhitung, dan momen-momen berharga yang menjadi kenangan seumur hidup bagi semua orang yang beruntung dapat membagikannya bersamanya.\n\nMatheus akan selalu dikenang sebagai seorang pejuang, orang yang beriman, pribadi yang berdedikasi melayani sesama, pembangun hubungan, pemimpi, dan inspirasi bagi semua orang yang menyaksikan tekadnya yang tak tergoyahkan untuk merangkul kehidupan — bahkan di hadapan kemungkinan yang mustahil.\n\nSepanjang perjalanannya, ada tiga momen ketika segala kemungkinan mengatakan kisahnya seharusnya berakhir. Namun setiap kali, ia menemukan cara untuk terus melangkah. Entah orang menyebutnya mukjizat, berkat, atau semata-mata kekuatan luar biasa dari jiwa manusia, momen-momen itu memberinya waktu yang berharga. Waktu untuk menciptakan lebih banyak kenangan, mempererat hubungan, dan terus menyentuh kehidupan orang-orang di sekitarnya.\n\nPada akhirnya, mungkin mukjizat terbesarnya bukan sekadar bertahan dari yang mustahil — melainkan diberi kesempatan menghabiskan hari-hari terakhirnya tepat di tempat yang ia inginkan: di rumah, dikelilingi orang-orang dan tempat-tempat yang paling ia cintai.",
     "giftStrong": "Begitulah cara Matheus memilih untuk hidup. Dan begitulah ia akan selalu dikenang."
   },
+  "gallery": {
+    "title": "Kenangan yang Bermakna",
+    "photoAlt": "Kenangan Matheus",
+    "comingSoon": "Foto segera hadir",
+    "comingSoonNote": "Foto akan segera ditambahkan - kunjungi kembali untuk melihat momen-momen kehidupan Matheus.",
+    "uploadButton": "Tambah Foto",
+    "uploading": "Mengunggah...",
+    "uploadSuccess": "Terima kasih telah berbagi foto - foto akan segera muncul.",
+    "uploadError": "Gagal mengunggah. Silakan coba lagi.",
+    "captchaPrompt": "Pemeriksaan singkat:",
+    "captchaPlaceholder": "Jawaban",
+    "captchaContinue": "Lanjutkan",
+    "captchaWrong": "Jawaban salah. Silakan coba lagi."
+  },
   "guestbook": {
     "formTitle": "Bagikan Kenangan, Doa, atau Pesan Kasih",
     "nameLabel": "Nama",
