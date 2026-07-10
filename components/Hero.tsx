@@ -20,15 +20,17 @@ export default function Hero() {
         <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           {/* Portrait */}
           <div className="flex justify-center md:justify-end">
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-[10px] border-amber-400 shadow-2xl bg-white">
-              <Image
-                src="/images/portrait.jpg"
-                alt="Matheus Basuni"
-                fill
-                sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
-                className="object-cover"
-                priority
-              />
+            <div className="relative translate-y-[25px] w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-[10px] border-amber-400 shadow-2xl bg-white">
+              <div className="absolute inset-x-0 top-[-15px] h-[115%]">
+                <Image
+                  src="/images/portrait.png"
+                  alt="Matheus Basuni"
+                  fill
+                  sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
 
