@@ -108,21 +108,45 @@ export default function WelcomeModal({
           <p className="text-xs font-medium text-slate-500 uppercase tracking-wide text-center mb-3">
             {service.detailsTitle}
           </p>
-          <div className="bg-white border border-amber-200 rounded-lg p-4 text-sm text-slate-700 space-y-3 text-center">
+          <div className="bg-white border border-amber-200 rounded-lg p-4 text-sm text-slate-700 space-y-4 text-center">
             <div>
-              <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-0.5">
-                {service.dateTimeLabel}:
-              </p>
-              <p className="font-medium text-blue-950">
-                {service.date} · {service.time}
-              </p>
+              <a
+                href="https://www.google.com/maps/place/Mount+Vernon+Memorial+Park+%26+Mortuary/@38.6795943,-121.2585006,17z/data=!4m6!3m5!1s0x809ae09c7a3457ff:0xda89dbee85b13492!8m2!3d38.6804409!4d-121.2579606!16s%2Fg%2F1v_w2m35?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-blue-800 underline underline-offset-2 hover:text-blue-600 transition-colors"
+              >
+                {service.locationName}
+              </a>
+              <p className="text-slate-500">{service.locationAddress}</p>
+            </div>
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-0.5">
+                  {service.caLabel}
+                </p>
+                <p className="font-medium text-blue-950">{service.caDate}</p>
+                <p className="text-slate-600">{service.caTime}</p>
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-0.5">
+                  {service.jakartaLabel}
+                </p>
+                <p className="font-medium text-blue-950">{service.jakartaDate}</p>
+                <p className="text-slate-600">{service.jakartaTime}</p>
+              </div>
             </div>
             <div>
-              <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-0.5">
-                {service.locationLabel}:
-              </p>
-              <p className="font-medium text-blue-950">{service.locationName}</p>
-              <p className="text-slate-500">{service.locationAddress}</p>
+              <a
+                href="https://us06web.zoom.us/j/83792442464?pwd=QaDZju7z990AcJaseeRDbzEITGNNQo.1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors"
+              >
+                {service.zoomLinkLabel}
+              </a>
+              <p className="font-medium text-blue-950 mt-1">{service.meetingId}</p>
+              <p className="font-medium text-blue-950">{service.passcode}</p>
             </div>
           </div>
         </div>

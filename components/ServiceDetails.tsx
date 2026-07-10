@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Dict } from '@/lib/i18n';
 
 function GoldDivider() {
@@ -52,18 +53,35 @@ export default function ServiceDetails({ dict }: { dict: Dict }) {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-5">
-            <div className="w-full sm:w-60 rounded-xl border border-slate-200 bg-white shadow-sm px-6 py-5 flex flex-col items-center justify-center gap-1">
+            <div className="w-full sm:w-64 rounded-xl border border-slate-200 bg-white shadow-sm px-6 py-6 flex flex-col items-center gap-3">
               <span className="font-bold text-xl text-[#6d1ed4]">Zelle</span>
-              <span className="text-sm text-slate-400 whitespace-nowrap">{t.donationsComingSoon}</span>
+              <Image
+                src="/images/zelle-qr.png"
+                alt="Zelle QR code"
+                width={160}
+                height={160}
+                className="w-40 h-40"
+              />
+              <div className="text-sm text-slate-600 space-y-0.5 text-center">
+                <p>Billybasuni@gmail.com</p>
+                <p>916-595-7150</p>
+              </div>
             </div>
             <a
-              href="https://venmo.com/u/Janti-Gouw"
+              href="https://venmo.com/u/Billy-Basuni"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-60 rounded-xl border border-[#008cff]/40 bg-white shadow-sm px-6 py-5 flex flex-col items-center justify-center gap-1 hover:border-[#008cff] hover:shadow-md transition-all"
+              className="w-full sm:w-64 rounded-xl border border-[#008cff]/40 bg-white shadow-sm px-6 py-6 flex flex-col items-center gap-3 hover:border-[#008cff] hover:shadow-md transition-all"
             >
               <span className="font-bold text-xl text-[#008cff]">Venmo</span>
-              <span className="text-sm font-medium text-[#008cff]">@Janti-Gouw</span>
+              <Image
+                src="/images/venmo-qr.png"
+                alt="Venmo QR code"
+                width={160}
+                height={160}
+                className="w-40 h-40"
+              />
+              <span className="text-sm font-medium text-[#008cff]">@Billy-Basuni</span>
             </a>
           </div>
         </div>

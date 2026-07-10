@@ -53,16 +53,12 @@
   },
   "service": {
     "detailsTitle": "Detail Acara",
-    "dateTimeLabel": "Tanggal / Waktu",
-    "locationLabel": "Lokasi",
-    "date": "Minggu, 19 Juli 2026",
-    "time": "10.00 – 14.00 PST",
     "locationName": "Mount Vernon Church of the Valley",
     "locationAddress": "8201 Greenback Ln, Fair Oaks, CA 95628",
     "caLabel": "California",
     "caDate": "Minggu, 19 Juli 2026",
     "caTime": "10.00 – 14.00 PST",
-    "jakartaLabel": "Jakarta (hanya virtual)",
+    "jakartaLabel": "Jakarta (zoom)",
     "jakartaDate": "Senin, 20 Juli 2026",
     "jakartaTime": "00.00 – 04.00 WIB",
     "zoomLinkLabel": "Zoom Link",
@@ -75,8 +71,7 @@
     "familyNote": "Terima kasih atas doa, kehadiran, dan kasih Anda selama masa ini. Kebaikan Anda sungguh berarti melebihi kata-kata.",
     "donationsTitle": "Dukungan untuk Keluarga",
     "donationsIntro": "Bagi yang bertanya bagaimana dapat memberikan dukungan, donasi diterima dengan tulus namun tidak pernah diharapkan.",
-    "donationsVia": "Jika Anda ingin berkontribusi, Anda dapat melakukannya melalui:",
-    "donationsComingSoon": "Kode QR segera hadir"
+    "donationsVia": "Jika Anda ingin berkontribusi, Anda dapat melakukannya melalui:"
   },
   "footer": {
     "inLovingMemoryOf": "Dalam Kenangan Penuh Kasih",
