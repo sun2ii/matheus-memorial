@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-type Photo = { src: string; alt: string };
+type Photo = { src: string; fullSrc?: string; alt: string };
 
 type Strings = {
   photoAlt: string;
@@ -52,50 +52,86 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
   const [notice, setNotice] = useState<'success' | 'error' | 'wrong-captcha' | null>(null);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [answer, setAnswer] = useState('');
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages((prev) => {
+      // Bail out if already tracked — returning the same reference skips the
+      // re-render (the ref callback below runs on every render, so this
+      // guard is what prevents an infinite update loop).
+      if (prev.has(index)) return prev;
+      const next = new Set(prev);
+      next.add(index);
+      return next;
+    });
+  };
 
   function scroll(direction: 'left' | 'right') {
     const strip = stripRef.current;
     if (!strip) return;
     const tile = strip.querySelector('div');
     const step = tile ? tile.clientWidth + 16 : 336;
-    strip.scrollBy({ left: direction === 'left' ? -step : step, behavior: 'smooth' });
+    const newScroll = strip.scrollLeft + (direction === 'left' ? -step : step);
+
+    // Loop: if at end, go to beginning; if at beginning (going left), go to end
+    if (direction === 'right' && newScroll >= strip.scrollWidth - strip.clientWidth) {
+      strip.scrollTo({ left: 0, behavior: 'smooth' });
+    } else if (direction === 'left' && strip.scrollLeft === 0) {
+      strip.scrollTo({ left: strip.scrollWidth, behavior: 'smooth' });
+    } else {
+      strip.scrollBy({ left: direction === 'left' ? -step : step, behavior: 'smooth' });
+    }
   }
+
+  function nextPhoto() {
+    if (lightboxIndex === null) return;
+    setLightboxIndex((lightboxIndex + 1) % photos.length);
+  }
+
+  function prevPhoto() {
+    if (lightboxIndex === null) return;
+    setLightboxIndex(lightboxIndex === 0 ? photos.length - 1 : lightboxIndex - 1);
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && lightboxIndex !== null) {
+        setLightboxIndex(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex]);
 
   async function handleUploadClick() {
     setNotice(null);
     setAnswer('');
-    try {
-      const res = await fetch('/api/captcha');
-      setChallenge(await res.json());
-    } catch {
-      setNotice('error');
-    }
+    setChallenge({ question: '', token: 'passphrase' });
   }
 
-  function handleCaptchaSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handlePassphraseSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!answer.trim()) return;
+    const passphrase = answer.trim().toLowerCase();
+    if (passphrase !== 'love to mamat') {
+      setNotice('wrong-captcha');
+      return;
+    }
     inputRef.current?.click();
   }
 
   async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     event.target.value = '';
-    if (!file || !challenge) return;
+    if (!file) return;
 
     setNotice(null);
     setUploading(true);
     try {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('captchaAnswer', answer.trim());
-      formData.append('captchaToken', challenge.token);
       const res = await fetch('/api/upload', { method: 'POST', body: formData });
-      if (res.status === 401) {
-        setNotice('wrong-captcha');
-        await handleUploadClick();
-        return;
-      }
       if (!res.ok) throw new Error('upload failed');
       setChallenge(null);
       setAnswer('');
@@ -118,16 +154,30 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
             ref={stripRef}
             className="flex-1 flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {photos.map((photo) => (
+            {photos.map((photo, index) => (
               <div
                 key={photo.src}
-                className="flex-shrink-0 w-64 sm:w-80 aspect-square snap-start rounded-xl overflow-hidden bg-white border border-blue-100 shadow-md"
+                onClick={() => setLightboxIndex(index)}
+                className="relative flex-shrink-0 w-64 sm:w-80 aspect-square snap-start rounded-xl overflow-hidden bg-white border border-blue-100 shadow-md cursor-pointer hover:shadow-xl hover:scale-105 transition-all"
               >
+                {!loadedImages.has(index) && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-100 via-slate-100 to-blue-50">
+                    <div className="w-8 h-8 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
+                  </div>
+                )}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={photo.src}
                   alt={photo.alt}
-                  loading="lazy"
+                  loading={index < 4 ? 'eager' : 'lazy'}
+                  fetchPriority={index < 4 ? 'high' : 'auto'}
+                  onLoad={() => handleImageLoad(index)}
+                  ref={(el) => {
+                    // Cached images can finish loading before React attaches
+                    // onLoad (e.g. on refresh) — check directly so the
+                    // spinner always clears.
+                    if (el?.complete && el.naturalWidth > 0) handleImageLoad(index);
+                  }}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -166,27 +216,26 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
         />
         {challenge && !uploading ? (
           <form
-            onSubmit={handleCaptchaSubmit}
+            onSubmit={handlePassphraseSubmit}
             className="inline-flex flex-col sm:flex-row items-center gap-3"
           >
-            <label htmlFor="upload-captcha" className="text-sm text-blue-950">
-              {t.captchaPrompt} <span className="font-semibold">{challenge.question} = ?</span>
+            <label htmlFor="upload-passphrase" className="text-sm text-blue-950">
+              Type <span className="font-semibold">&ldquo;love to mamat&rdquo;</span> to continue
             </label>
             <input
-              id="upload-captcha"
+              id="upload-passphrase"
               type="text"
-              inputMode="numeric"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
-              placeholder={t.captchaPlaceholder}
+              placeholder="love to mamat"
               autoFocus
-              className="w-28 px-4 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 text-sm text-center"
+              className="w-40 px-4 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 text-sm text-center"
             />
             <button
               type="submit"
               className="bg-blue-950 hover:bg-blue-900 text-blue-50 text-sm font-medium px-5 py-2 rounded-lg shadow transition-colors"
             >
-              {t.captchaContinue}
+              Continue
             </button>
           </form>
         ) : (
@@ -210,9 +259,65 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
           <p className="text-sm text-red-700 mt-3">{t.uploadError}</p>
         )}
         {notice === 'wrong-captcha' && (
-          <p className="text-sm text-red-700 mt-3">{t.captchaWrong}</p>
+          <p className="text-sm text-red-700 mt-3">Wrong passphrase. Please try again.</p>
         )}
       </div>
+
+      {/* Lightbox Modal */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4"
+          onClick={() => setLightboxIndex(null)}
+        >
+          <button
+            onClick={() => setLightboxIndex(null)}
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            aria-label="Close"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              prevPhoto();
+            }}
+            className="absolute left-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            aria-label="Previous photo"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              nextPhoto();
+            }}
+            className="absolute right-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            aria-label="Next photo"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={photos[lightboxIndex].fullSrc ?? photos[lightboxIndex].src}
+            alt={photos[lightboxIndex].alt}
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-full max-h-full object-contain"
+          />
+
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/50 px-4 py-2 rounded-full">
+            {lightboxIndex + 1} / {photos.length}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

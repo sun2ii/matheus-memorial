@@ -64,7 +64,13 @@ export default function WelcomeModal({
         {/* Portrait */}
         <div className="flex justify-center">
           <div className="relative w-56 h-56 rounded-full overflow-hidden border-4 border-amber-400 shadow-lg bg-white">
-            <Image src="/images/portrait.png" alt="Matheus Basuni" fill sizes="500px" className="object-cover" />
+            <Image
+              src="/images/portrait.png"
+              alt="Matheus Basuni"
+              fill
+              sizes="500px"
+              className="object-cover"
+            />
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import { google } from 'googleapis';
+import { unstable_cache } from 'next/cache';
 
 export const DRIVE_FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID ?? '';
 
@@ -23,7 +24,7 @@ export function getDrive() {
 
 export type GalleryPhoto = { id: string; name: string };
 
-export async function listGalleryPhotos(): Promise<GalleryPhoto[]> {
+async function fetchGalleryPhotos(): Promise<GalleryPhoto[]> {
   if (!DRIVE_FOLDER_ID) return [];
   try {
     const drive = getDrive();
@@ -44,6 +45,15 @@ export async function listGalleryPhotos(): Promise<GalleryPhoto[]> {
   }
 }
 
-export function drivePhotoUrl(id: string): string {
-  return `/api/photos/${id}`;
+// Cache the Drive listing for 60s so the page doesn't hit the Drive API
+// on every visit. New uploads appear within a minute.
+export const GALLERY_CACHE_TAG = 'gallery-photos';
+
+export const listGalleryPhotos = unstable_cache(fetchGalleryPhotos, [GALLERY_CACHE_TAG], {
+  revalidate: 60,
+  tags: [GALLERY_CACHE_TAG],
+});
+
+export function drivePhotoUrl(id: string, width?: number): string {
+  return width ? `/api/photos/${id}?w=${width}` : `/api/photos/${id}`;
 }

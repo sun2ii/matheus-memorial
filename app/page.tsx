@@ -30,8 +30,23 @@ export default async function Home() {
       {/* Life story + timeline */}
       <LifeStory dict={dict} />
 
-      {/* Photo gallery */}
-      <PhotoGallery dict={dict} />
+      {/* Photo gallery — Suspense so the page shell isn't blocked by the Drive listing */}
+      <Suspense
+        fallback={
+          <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#eff6ff]">
+            <div className="max-w-7xl mx-auto animate-pulse">
+              <div className="h-9 bg-blue-100 rounded w-56 mx-auto mb-12" />
+              <div className="flex gap-4 justify-center overflow-hidden">
+                <div className="w-64 sm:w-80 aspect-square rounded-xl bg-blue-100 flex-shrink-0" />
+                <div className="w-64 sm:w-80 aspect-square rounded-xl bg-blue-100 flex-shrink-0 hidden sm:block" />
+                <div className="w-64 sm:w-80 aspect-square rounded-xl bg-blue-100 flex-shrink-0 hidden lg:block" />
+              </div>
+            </div>
+          </section>
+        }
+      >
+        <PhotoGallery dict={dict} />
+      </Suspense>
 
       {/* Guestbook */}
       <section id="guestbook" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">

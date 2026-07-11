@@ -22,8 +22,13 @@ export default async function PhotoGallery({ dict }: { dict: Dict }) {
 
   const drivePhotos = await listGalleryPhotos();
   const photos = [
-    ...drivePhotos.map((p) => ({ src: drivePhotoUrl(p.id), alt: t.photoAlt })),
-    ...getLocalPhotos().map((src) => ({ src, alt: t.photoAlt })),
+    ...getLocalPhotos().map((src) => ({ src, fullSrc: src, alt: t.photoAlt })),
+    ...drivePhotos.map((p) => ({
+      // Small thumbnail for the carousel tile, larger version for the lightbox
+      src: drivePhotoUrl(p.id, 640),
+      fullSrc: drivePhotoUrl(p.id, 1600),
+      alt: t.photoAlt,
+    })),
   ];
 
   return (

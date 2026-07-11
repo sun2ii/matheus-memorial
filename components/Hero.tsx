@@ -22,14 +22,14 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           {/* Portrait */}
-          <div className="flex justify-center md:justify-end">
-            <div className="relative translate-y-[25px] w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-[10px] border-amber-400 shadow-2xl bg-white">
+          <div className="flex justify-center">
+            <div className="relative translate-y-[25px] w-80 h-80 sm:w-96 sm:h-96 lg:w-[28rem] lg:h-[28rem] rounded-full overflow-hidden border-[10px] border-amber-400 shadow-2xl bg-white">
               <div className="absolute inset-x-0 top-[-15px] h-[115%]">
                 <Image
                   src="/images/portrait.png"
                   alt="Matheus Basuni"
                   fill
-                  sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                  sizes="(max-width: 640px) 320px, (max-width: 1024px) 384px, 448px"
                   className="object-cover"
                   priority
                 />
@@ -90,14 +90,18 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
                 </div>
 
                 <div className="mt-5 text-sm">
-                  <a
-                    href="https://us06web.zoom.us/j/83792442464?pwd=QaDZju7z990AcJaseeRDbzEITGNNQo.1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors"
-                  >
-                    {dict.service.zoomLinkLabel}
-                  </a>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/zoom-icon.webp" alt="Zoom" className="h-6 w-auto" />
+                    <a
+                      href="https://us06web.zoom.us/j/83792442464?pwd=QaDZju7z990AcJaseeRDbzEITGNNQo.1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors"
+                    >
+                      {dict.service.zoomLinkLabel}
+                    </a>
+                  </div>
                   <p className="font-medium">{dict.service.meetingId}</p>
                   <p className="font-medium">{dict.service.passcode}</p>
                 </div>

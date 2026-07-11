@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Readable } from 'stream';
-import { revalidatePath } from 'next/cache';
-import { getDrive, DRIVE_FOLDER_ID } from '@/lib/drive';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { getDrive, DRIVE_FOLDER_ID, GALLERY_CACHE_TAG } from '@/lib/drive';
 import { verifyChallenge } from '@/lib/captcha';
 
 const MAX_SIZE = 10 * 1024 * 1024; // 10MB
@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
       supportsAllDrives: true,
     });
 
+    revalidateTag(GALLERY_CACHE_TAG, 'max'); // bust the 60s listing cache so the new photo shows immediately
     revalidatePath('/');
     return NextResponse.json({ id: fileId });
   } catch (error) {
