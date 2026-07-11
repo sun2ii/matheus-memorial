@@ -137,6 +137,11 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
       setAnswer('');
       setNotice('success');
       router.refresh();
+
+      // Auto-dismiss success message after 5 seconds
+      setTimeout(() => {
+        setNotice(null);
+      }, 5000);
     } catch {
       setNotice('error');
     } finally {
@@ -243,12 +248,24 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
             type="button"
             disabled={uploading}
             onClick={handleUploadClick}
-            className="inline-flex items-center gap-2 bg-blue-950 hover:bg-blue-900 disabled:bg-slate-400 text-blue-50 text-sm font-medium px-6 py-3 rounded-lg shadow transition-colors"
+            className="inline-flex items-center gap-2 bg-blue-950 hover:bg-blue-900 disabled:bg-blue-900 text-blue-50 text-sm font-medium px-6 py-3 rounded-lg shadow transition-colors"
           >
-            {uploading ? t.uploading : t.uploadButton}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-              <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 20h16" />
-            </svg>
+            {uploading ? (
+              <>
+                {t.uploading}
+                <div className="relative w-4 h-4">
+                  <div className="absolute inset-0 border-2 border-blue-300/30 rounded-full" />
+                  <div className="absolute inset-0 border-2 border-blue-50 border-t-transparent rounded-full animate-spin" />
+                </div>
+              </>
+            ) : (
+              <>
+                {t.uploadButton}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                  <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 20h16" />
+                </svg>
+              </>
+            )}
           </button>
         )}
 

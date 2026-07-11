@@ -107,7 +107,7 @@ export default function ServiceDetails({ dict }: { dict: Dict }) {
                   <p className="text-base text-white/70 mb-2">Basuni Family</p>
                   <p className="text-4xl font-bold text-white tracking-wide">1610065500</p>
                 </div>
-                <CopyButton text="1610065500" label="Salin Nomor" />
+                <CopyButton text="1610065500" label={t.copyNumber} />
               </div>
             </div>
           </div>

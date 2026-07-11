@@ -35,7 +35,7 @@ export default function MusicPlayer() {
     <>
       <audio
         ref={audioRef}
-        src="/assets/when-i-think-about-the-lord.mp3"
+        src="/assets/unforgettable.mp3"
         autoPlay
         loop
         onPlay={() => setIsPlaying(true)}
