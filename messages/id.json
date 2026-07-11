@@ -11,6 +11,18 @@
     "dates": "25 Februari 1960 – 6 Juli 2026",
     "intro": "Matheus hidup dengan keberanian, iman, humor, dan kasih yang mendalam bagi keluarga serta sahabat. Ruang ini dibuat untuk menghormati hidupnya, membagikan kisahnya, dan menyimpan kenangan yang terus bertumbuh karenanya."
   },
+  "obituary": {
+    "eyebrow": "In Loving Memory",
+    "name": "Matheus Basuni",
+    "dates": "February 25, 1960 — July 6, 2026",
+    "p1": "Matheus Basuni, 66, passed away on July 6, 2026, after a courageous battle with heart failure. Born on February 25, 1960, in Pontianak, Kalimantan, Indonesia, Matheus immigrated to the United States where he built a life defined by resilience, generosity, and unwavering optimism.",
+    "p2Lead": "Throughout his journey — marked by multiple life-threatening complications and countless moments when the odds seemed insurmountable — Matheus embodied the spirit captured in his favorite words:",
+    "quote": "Do great things with great love.",
+    "p3": "He faced each challenge with remarkable determination and grace, never losing his positive mindset and strong will, even when told his condition was terminal. His fight was not merely about survival — it was a testament to the man he was.",
+    "p4": "Matheus was known throughout his life for his generous spirit and his gift for helping others. He had a unique ability to see potential in people and to create paths for them to succeed. Whether through quiet acts of kindness or steadfast encouragement, he left an indelible mark on those around him. He lived fully, loved deeply, and held onto hope through every impossible moment.",
+    "survivedBy": "He is survived by his beloved wife, Janti Gouw, and their three children: Billy, Ben, and Bella.",
+    "closing": "Matheus' legacy is one of courage, compassion, and the transformative power of maintaining hope in the face of darkness."
+  },
   "story": {
     "timelineTitle": "Perjalanan Transplantasi Jantung & Semangat Juang Matheus",
     "timelineIntro": "Perjalanan Matheus melewati gagal jantung ditandai oleh ketangguhan luar biasa dan momen-momen yang bagi banyak orang tampak sebagai mukjizat. Meski menghadapi berbagai komplikasi yang mengancam nyawa dan berkali-kali dinyatakan bahwa kondisinya tidak dapat disembuhkan, tekadnya untuk terus berjuang menjadi cerminan dirinya yang sesungguhnya. Seorang pribadi yang hidup sepenuhnya, mengasihi dengan mendalam, dan berpegang pada harapan di setiap saat yang mustahil.",
@@ -25,7 +37,9 @@
     "t2026Strong": "Pada 18 Juni 2026, ia menempuh perjalanan dua setengah jam pulang ke rumahnya di Sacramento.",
     "giftTitle": "Anugerah Terindah",
     "giftBody": "Di luar segala dugaan, Matheus menghabiskan 18 hari lagi di rumah, dikelilingi orang-orang, tempat, dan kenangan yang paling ia sayangi.\n\nHari-hari itu dipenuhi kasih, tawa, percakapan, makanan kesukaannya, kunjungan yang tak terhitung, dan momen-momen berharga yang menjadi kenangan seumur hidup bagi semua orang yang beruntung dapat membagikannya bersamanya.\n\nMatheus akan selalu dikenang sebagai seorang pejuang, orang yang beriman, pribadi yang berdedikasi melayani sesama, pembangun hubungan, pemimpi, dan inspirasi bagi semua orang yang menyaksikan tekadnya yang tak tergoyahkan untuk merangkul kehidupan — bahkan di hadapan kemungkinan yang mustahil.\n\nSepanjang perjalanannya, ada tiga momen ketika segala kemungkinan mengatakan kisahnya seharusnya berakhir. Namun setiap kali, ia menemukan cara untuk terus melangkah. Entah orang menyebutnya mukjizat, berkat, atau semata-mata kekuatan luar biasa dari jiwa manusia, momen-momen itu memberinya waktu yang berharga. Waktu untuk menciptakan lebih banyak kenangan, mempererat hubungan, dan terus menyentuh kehidupan orang-orang di sekitarnya.\n\nPada akhirnya, mungkin mukjizat terbesarnya bukan sekadar bertahan dari yang mustahil — melainkan diberi kesempatan menghabiskan hari-hari terakhirnya tepat di tempat yang ia inginkan: di rumah, dikelilingi orang-orang dan tempat-tempat yang paling ia cintai.",
-    "giftStrong": "Begitulah cara Matheus memilih untuk hidup. Dan begitulah ia akan selalu dikenang."
+    "giftStrong": "Begitulah cara Matheus memilih untuk hidup. Dan begitulah ia akan selalu dikenang.",
+    "readMore": "Baca perjalanan lengkap Matheus",
+    "showLess": "Tampilkan lebih sedikit"
   },
   "gallery": {
     "title": "Kenangan yang Bermakna",
