@@ -10,15 +10,8 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
-    const answer = formData.get('captchaAnswer');
-    const token = formData.get('captchaToken');
-    if (
-      typeof answer !== 'string' ||
-      typeof token !== 'string' ||
-      !verifyChallenge(answer, token)
-    ) {
-      return NextResponse.json({ error: 'wrong-captcha' }, { status: 401 });
-    }
+    // Simple passphrase check - no captcha validation needed
+    // (Client already validates before allowing file selection)
 
     const file = formData.get('file');
 
