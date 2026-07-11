@@ -35,6 +35,10 @@ export default function WelcomeModal({
   function close() {
     sessionStorage.setItem(SEEN_KEY, '1');
     setOpen(false);
+
+    // Start music playback after user interaction
+    const event = new CustomEvent('startMusic');
+    window.dispatchEvent(event);
   }
 
   function chooseLanguage(next: Locale) {
@@ -59,8 +63,8 @@ export default function WelcomeModal({
       <div className="relative w-full max-w-md bg-[#fdfbf5] rounded-2xl shadow-2xl p-6 sm:p-8 space-y-5 max-h-[90vh] overflow-y-auto">
         {/* Portrait */}
         <div className="flex justify-center">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-amber-400 shadow-lg bg-white">
-            <Image src="/images/portrait.png" alt="Matheus Basuni" fill sizes="96px" className="object-cover" />
+          <div className="relative w-56 h-56 rounded-full overflow-hidden border-4 border-amber-400 shadow-lg bg-white">
+            <Image src="/images/portrait.png" alt="Matheus Basuni" fill sizes="500px" className="object-cover" />
           </div>
         </div>
 
@@ -69,14 +73,13 @@ export default function WelcomeModal({
           <div className="flex justify-center mt-2 mb-3">
             <span className="w-1.5 h-1.5 rotate-45 bg-amber-500" />
           </div>
-          <p className="text-sm text-slate-700 leading-relaxed">{t.intro}</p>
+          <p className="text-sm text-slate-700 leading-relaxed">
+            {t.brief}
+          </p>
         </div>
 
         {/* Language choice */}
         <div>
-          <p className="text-xs font-medium text-slate-500 uppercase tracking-wide text-center mb-2">
-            {t.chooseLanguage}
-          </p>
           <div className="flex gap-3">
             <button
               type="button"
@@ -103,58 +106,10 @@ export default function WelcomeModal({
           </div>
         </div>
 
-        {/* Memorial service details */}
-        <div className="border-t border-amber-200 pt-5">
-          <p className="text-xs font-medium text-slate-500 uppercase tracking-wide text-center mb-3">
-            {service.detailsTitle}
-          </p>
-          <div className="bg-white border border-amber-200 rounded-lg p-4 text-sm text-slate-700 space-y-4 text-center">
-            <div>
-              <a
-                href="https://www.google.com/maps/place/Mount+Vernon+Memorial+Park+%26+Mortuary/@38.6795943,-121.2585006,17z/data=!4m6!3m5!1s0x809ae09c7a3457ff:0xda89dbee85b13492!8m2!3d38.6804409!4d-121.2579606!16s%2Fg%2F1v_w2m35?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-blue-800 underline underline-offset-2 hover:text-blue-600 transition-colors"
-              >
-                {service.locationName}
-              </a>
-              <p className="text-slate-500">{service.locationAddress}</p>
-            </div>
-            <div className="flex gap-3">
-              <div className="flex-1">
-                <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-0.5">
-                  {service.caLabel}
-                </p>
-                <p className="font-medium text-blue-950">{service.caDate}</p>
-                <p className="text-slate-600">{service.caTime}</p>
-              </div>
-              <div className="flex-1">
-                <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-0.5">
-                  {service.jakartaLabel}
-                </p>
-                <p className="font-medium text-blue-950">{service.jakartaDate}</p>
-                <p className="text-slate-600">{service.jakartaTime}</p>
-              </div>
-            </div>
-            <div>
-              <a
-                href="https://us06web.zoom.us/j/83792442464?pwd=QaDZju7z990AcJaseeRDbzEITGNNQo.1"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors"
-              >
-                {service.zoomLinkLabel}
-              </a>
-              <p className="font-medium text-blue-950 mt-1">{service.meetingId}</p>
-              <p className="font-medium text-blue-950">{service.passcode}</p>
-            </div>
-          </div>
-        </div>
-
         <button
           type="button"
           onClick={close}
-          className="w-full text-center text-sm text-blue-900/70 hover:text-blue-950 underline underline-offset-4 transition-colors"
+          className="w-full px-8 py-4 text-lg font-bold text-blue-900 hover:text-blue-950 underline underline-offset-4 transition-colors"
         >
           {t.continueButton}
         </button>

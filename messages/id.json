@@ -79,8 +79,8 @@
     "meetingId": "Meeting ID: 837 9244 2464",
     "passcode": "Kode Sandi: 02251960",
     "comfortTitle": "Pesan Penghiburan",
-    "comfortQuote": "“TUHAN itu dekat kepada orang-orang yang patah hati, dan Ia menyelamatkan orang-orang yang remuk jiwanya.”",
-    "comfortRef": "- Mazmur 34:19 (TB)",
+    "comfortQuote": "Aku telah mengakhiri pertandingan yang baik, aku telah mencapai garis akhir dan aku telah memelihara iman.",
+    "comfortRef": "- 2 Timotius 4:7 (TB)",
     "familyTitle": "Pesan dari Keluarga",
     "familyNote": "Terima kasih atas doa, kehadiran, dan kasih Anda selama masa ini. Kebaikan Anda sungguh berarti melebihi kata-kata.",
     "donationsTitle": "Dukungan untuk Keluarga",
@@ -95,6 +95,7 @@
   "welcome": {
     "title": "Selamat Datang",
     "intro": "Memorial ini merayakan kehidupan Matheus Basuni (25 Februari 1960 – 6 Juli 2026) - seorang pejuang, orang yang beriman, serta suami, ayah, dan sahabat yang terkasih. Di sini Anda dapat membaca kisahnya, melihat foto-foto, dan meninggalkan pesan untuk keluarga.",
+    "brief": "Memorial ini merayakan kehidupan Matheus Basuni (25 Februari 1960 - 6 Juli 2026)",
     "chooseLanguage": "Pilih bahasa Anda",
     "continueButton": "Lanjutkan ke memorial"
   }

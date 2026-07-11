@@ -6,6 +6,9 @@ import { getDict, type Dict, type Locale } from "@/lib/i18n";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import MobileMenu from "@/components/MobileMenu";
 import WelcomeModal from "@/components/WelcomeModal";
+import MusicPlayer from "@/components/MusicPlayer";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
 import enMessages from "@/messages/en.json";
 import idMessages from "@/messages/id.json";
 
@@ -139,10 +142,13 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${cinzel.variable} scroll-smooth`}>
       <body className="min-h-screen flex flex-col font-sans antialiased bg-[#f8fafc]">
+        <ScrollProgress />
         <Navigation locale={locale} dict={dict} />
         <main className="flex-1 pt-16">{children}</main>
         <Footer dict={dict} />
         <WelcomeModal locale={locale} dicts={{ en: enMessages, id: idMessages }} />
+        <MusicPlayer />
+        <BackToTop />
       </body>
     </html>
   );

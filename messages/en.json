@@ -79,8 +79,8 @@
     "meetingId": "Meeting ID: 837 9244 2464",
     "passcode": "Passcode: 02251960",
     "comfortTitle": "A Message of Comfort",
-    "comfortQuote": "“The Lord is close to the brokenhearted and saves those who are crushed in spirit.”",
-    "comfortRef": "- Psalm 34:18",
+    "comfortQuote": "I have fought the good fight, I have finished the race, I have kept the faith.",
+    "comfortRef": "- 2 Timothy 4:7",
     "familyTitle": "A Note from the Family",
     "familyNote": "Thank you for your prayers, presence, and love during this time. Your kindness means more than words can express.",
     "donationsTitle": "Supporting the Family",
@@ -95,6 +95,7 @@
   "welcome": {
     "title": "Welcome",
     "intro": "This memorial celebrates the life of Matheus Basuni (February 25, 1960 – July 6, 2026) - a fighter, a believer, and a beloved husband, father, and friend. Here you can read his story, view photos, and leave a message for the family.",
+    "brief": "This memorial celebrates the life of Matheus Basuni (February 25, 1960 - July 6, 2026)",
     "chooseLanguage": "Choose your language",
     "continueButton": "Continue to the memorial"
   }

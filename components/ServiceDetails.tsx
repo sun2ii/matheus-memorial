@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { Dict } from '@/lib/i18n';
+import CopyButton from './CopyButton';
 
 function GoldDivider() {
   return (
@@ -11,6 +12,7 @@ function GoldDivider() {
 
 export default function ServiceDetails({ dict }: { dict: Dict }) {
   const t = dict.service;
+  const locale = dict.nav.home === 'Home' ? 'en' : 'id';
 
   return (
     <section id="service" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
@@ -48,41 +50,66 @@ export default function ServiceDetails({ dict }: { dict: Dict }) {
         <div id="donations" className="border-t border-blue-100 p-8 sm:p-10 text-center scroll-mt-20">
           <h3 className="font-serif text-2xl text-blue-950 mb-1">{t.donationsTitle}</h3>
           <GoldDivider />
-          <p className="text-slate-700 leading-relaxed max-w-lg mx-auto text-balance">
+          <p className="text-slate-700 leading-relaxed max-w-2xl mx-auto text-balance mb-8">
             {t.donationsIntro} {t.donationsVia}
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-5">
-            <div className="w-full sm:w-64 rounded-xl border border-slate-200 bg-white shadow-sm px-6 py-6 flex flex-col items-center gap-3">
-              <span className="font-bold text-xl text-[#6d1ed4]">Zelle</span>
-              <Image
-                src="/images/zelle-qr.png"
-                alt="Zelle QR code"
-                width={160}
-                height={160}
-                className="w-40 h-40"
-              />
-              <div className="text-sm text-slate-600 space-y-0.5 text-center">
-                <p>Billybasuni@gmail.com</p>
-                <p>916-595-7150</p>
+          <div className="mt-8 grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* USA */}
+            <div className="w-full rounded-xl border border-slate-200 bg-white shadow-sm px-6 py-6">
+              <h4 className="font-serif text-lg text-blue-950 mb-6 text-center">🇺🇸 USA</h4>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="flex flex-col items-center gap-3">
+                  <span className="font-bold text-xl text-[#6d1ed4]">Zelle</span>
+                  <Image
+                    src="/images/zelle-qr.png"
+                    alt="Zelle QR code"
+                    width={160}
+                    height={160}
+                    className="w-40 h-40"
+                  />
+                  <div className="text-sm text-slate-600 space-y-0.5 text-center">
+                    <p>Billybasuni@gmail.com</p>
+                    <p>916-595-7150</p>
+                  </div>
+                </div>
+                <a
+                  href="https://venmo.com/u/Billy-Basuni"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <span className="font-bold text-xl text-[#008cff]">Venmo</span>
+                  <Image
+                    src="/images/venmo-qr.png"
+                    alt="Venmo QR code"
+                    width={160}
+                    height={160}
+                    className="w-40 h-40"
+                  />
+                  <span className="text-sm font-medium text-[#008cff]">@Billy-Basuni</span>
+                </a>
               </div>
             </div>
-            <a
-              href="https://venmo.com/u/Billy-Basuni"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-64 rounded-xl border border-[#008cff]/40 bg-white shadow-sm px-6 py-6 flex flex-col items-center gap-3 hover:border-[#008cff] hover:shadow-md transition-all"
-            >
-              <span className="font-bold text-xl text-[#008cff]">Venmo</span>
-              <Image
-                src="/images/venmo-qr.png"
-                alt="Venmo QR code"
-                width={160}
-                height={160}
-                className="w-40 h-40"
-              />
-              <span className="text-sm font-medium text-[#008cff]">@Billy-Basuni</span>
-            </a>
+
+            {/* Indonesia */}
+            <div className="w-full rounded-xl border border-white/10 bg-slate-900 shadow-xl px-6 py-6">
+              <h4 className="font-serif text-lg text-white mb-8 text-center">🇮🇩 Indonesia</h4>
+              <div className="flex flex-col items-center gap-6">
+                <Image
+                  src="/images/bca.png"
+                  alt="BCA"
+                  width={180}
+                  height={60}
+                  className="h-14 w-auto"
+                />
+                <div className="text-center">
+                  <p className="text-base text-white/70 mb-2">Basuni Family</p>
+                  <p className="text-4xl font-bold text-white tracking-wide">1610065500</p>
+                </div>
+                <CopyButton text="1610065500" label="Salin Nomor" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
