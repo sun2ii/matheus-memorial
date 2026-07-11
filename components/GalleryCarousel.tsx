@@ -121,6 +121,59 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
     inputRef.current?.click();
   }
 
+  async function compressImage(file: File): Promise<File> {
+    const LIMIT = 4 * 1024 * 1024; // stay under Vercel's 4.5MB body cap
+    const MAX_DIMENSION = 2000;
+
+    // Re-encoding a GIF on a canvas would lose its animation
+    if (file.type === 'image/gif' && file.size <= LIMIT) return file;
+
+    let bitmap: ImageBitmap;
+    try {
+      // 'from-image' bakes in EXIF rotation; older Safari may reject the
+      // options object, so fall back to a plain call.
+      bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' }).catch(() =>
+        createImageBitmap(file)
+      );
+    } catch {
+      // Browser can't decode this format (e.g. HEIC on Chrome/Firefox).
+      // The original is fine to upload if it fits under the limit.
+      if (file.size <= LIMIT) return file;
+      throw new Error('unsupported-format');
+    }
+
+    try {
+      const scale = Math.min(1, MAX_DIMENSION / Math.max(bitmap.width, bitmap.height));
+      const width = Math.round(bitmap.width * scale);
+      const height = Math.round(bitmap.height * scale);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('canvas-unavailable');
+
+      // White background so PNG transparency doesn't turn black in JPEG
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
+      ctx.drawImage(bitmap, 0, 0, width, height);
+
+      const toJpeg = (quality: number) =>
+        new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+
+      // 2000px @ q0.85 is almost always well under 1MB; one retry covers
+      // pathological cases (heavy noise/grain).
+      let blob = await toJpeg(0.85);
+      if (blob && blob.size > LIMIT) blob = await toJpeg(0.7);
+      if (!blob || blob.size > LIMIT) throw new Error('compression-failed');
+
+      const name = file.name.replace(/\.\w+$/, '') + '.jpg';
+      return new File([blob], name, { type: 'image/jpeg' });
+    } finally {
+      bitmap.close();
+    }
+  }
+
   async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     event.target.value = '';
@@ -129,10 +182,17 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
     setNotice(null);
     setUploading(true);
     try {
+      // Compress the image before upload
+      const compressedFile = await compressImage(file);
+
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', compressedFile);
+      formData.append('passphrase', answer); // server verifies this too
       const res = await fetch('/api/upload', { method: 'POST', body: formData });
-      if (!res.ok) throw new Error('upload failed');
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText || `Upload failed with status ${res.status}`);
+      }
       setChallenge(null);
       setAnswer('');
       setNotice('success');
@@ -142,7 +202,8 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
       setTimeout(() => {
         setNotice(null);
       }, 5000);
-    } catch {
+    } catch (err) {
+      console.error('Upload error:', err);
       setNotice('error');
     } finally {
       setUploading(false);

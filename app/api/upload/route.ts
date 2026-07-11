@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Readable } from 'stream';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { getDrive, DRIVE_FOLDER_ID, GALLERY_CACHE_TAG } from '@/lib/drive';
-import { verifyChallenge } from '@/lib/captcha';
+
+const UPLOAD_PASSPHRASE = 'love to mamat';
 
 const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -10,8 +11,15 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
-    // Simple passphrase check - no captcha validation needed
-    // (Client already validates before allowing file selection)
+    // Verify the passphrase server-side — client-side checks can be bypassed
+    // by anyone POSTing to this endpoint directly.
+    const passphrase = formData.get('passphrase');
+    if (
+      typeof passphrase !== 'string' ||
+      passphrase.trim().toLowerCase() !== UPLOAD_PASSPHRASE
+    ) {
+      return NextResponse.json({ error: 'wrong-passphrase' }, { status: 401 });
+    }
 
     const file = formData.get('file');
 

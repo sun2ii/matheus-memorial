@@ -104,7 +104,8 @@ export default function ServiceDetails({ dict }: { dict: Dict }) {
                   className="h-14 w-auto"
                 />
                 <div className="text-center">
-                  <p className="text-base text-white/70 mb-2">Basuni Family</p>
+                  <p className="text-base text-white/70 mb-1">Basuni Family</p>
+                  <p className="text-sm text-white/50 italic mb-2">(a.n. Helen Francisca)</p>
                   <p className="text-4xl font-bold text-white tracking-wide">1610065500</p>
                 </div>
                 <CopyButton text="1610065500" label={t.copyNumber} />
