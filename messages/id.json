@@ -8,20 +8,19 @@
   },
   "hero": {
     "celebrating": "Merayakan Kehidupan",
-    "dates": "25 Februari 1960 – 6 Juli 2026",
-    "intro": "Matheus hidup dengan keberanian, iman, humor, dan kasih yang mendalam bagi keluarga serta sahabat. Ruang ini dibuat untuk menghormati hidupnya, membagikan kisahnya, dan menyimpan kenangan yang terus bertumbuh karenanya."
+    "dates": "25 Februari 1960 – 6 Juli 2026"
   },
   "obituary": {
-    "eyebrow": "In Loving Memory",
+    "eyebrow": "Dalam Kenangan Penuh Kasih",
     "name": "Matheus Basuni",
-    "dates": "February 25, 1960 — July 6, 2026",
-    "p1": "Matheus Basuni, 66, passed away on July 6, 2026, after a courageous battle with heart failure. Born on February 25, 1960, in Pontianak, Kalimantan, Indonesia, Matheus immigrated to the United States where he built a life defined by resilience, generosity, and unwavering optimism.",
-    "p2Lead": "Throughout his journey — marked by multiple life-threatening complications and countless moments when the odds seemed insurmountable — Matheus embodied the spirit captured in his favorite words:",
-    "quote": "Do great things with great love.",
-    "p3": "He faced each challenge with remarkable determination and grace, never losing his positive mindset and strong will, even when told his condition was terminal. His fight was not merely about survival — it was a testament to the man he was.",
-    "p4": "Matheus was known throughout his life for his generous spirit and his gift for helping others. He had a unique ability to see potential in people and to create paths for them to succeed. Whether through quiet acts of kindness or steadfast encouragement, he left an indelible mark on those around him. He lived fully, loved deeply, and held onto hope through every impossible moment.",
-    "survivedBy": "He is survived by his beloved wife, Janti Gouw, and their three children: Billy, Ben, and Bella.",
-    "closing": "Matheus' legacy is one of courage, compassion, and the transformative power of maintaining hope in the face of darkness."
+    "dates": "25 Februari 1960 — 6 Juli 2026",
+    "p1": "Matheus Basuni, 66 tahun, berpulang pada 6 Juli 2026 setelah perjuangan yang gigih melawan gagal jantung. Lahir pada 25 Februari 1960 di Pontianak, Kalimantan, Indonesia, Matheus berimigrasi ke Amerika Serikat, tempat ia membangun kehidupan yang dilandasi ketangguhan, kemurahan hati, dan optimisme yang tak tergoyahkan.",
+    "p2Lead": "Sepanjang perjalanannya — yang diwarnai berbagai komplikasi yang mengancam jiwa dan tak terhitung momen ketika harapan tampak mustahil — Matheus mewujudkan semangat yang tercermin dalam kata-kata kesukaannya:",
+    "quote": "Do small things with great love.",
+    "p3": "Ia menghadapi setiap tantangan dengan tekad dan keanggunan yang luar biasa, tanpa pernah kehilangan pikiran positif dan kemauan kerasnya, bahkan ketika diberitahu bahwa kondisinya sudah tak tersembuhkan. Perjuangannya bukan sekadar soal bertahan hidup — itu adalah cerminan sosok dirinya.",
+    "p4": "Sepanjang hidupnya, Matheus dikenal karena jiwanya yang murah hati dan kepiawaiannya menolong sesama. Ia memiliki kemampuan istimewa untuk melihat potensi dalam diri orang lain dan membuka jalan bagi mereka untuk berhasil. Baik melalui kebaikan yang tak bersuara maupun dorongan yang teguh, ia meninggalkan kesan yang tak terlupakan bagi orang-orang di sekitarnya. Ia hidup sepenuhnya, mengasihi sedalam-dalamnya, dan memegang teguh harapan di setiap momen yang mustahil.",
+    "survivedBy": "Ia meninggalkan istri tercinta, Janti Gouw, dan ketiga anak mereka: Billy, Ben, dan Bella.",
+    "closing": "Warisan Matheus adalah keberanian, welas asih, dan kekuatan yang mengubah dari memelihara harapan di tengah kegelapan."
   },
   "story": {
     "timelineTitle": "Perjalanan Transplantasi Jantung & Semangat Juang Matheus",
@@ -80,10 +79,10 @@
     "errorSubmit": "Gagal mengirim pesan. Silakan coba lagi."
   },
   "service": {
-    "detailsTitle": "Detail Acara",
+    "detailsTitle": "Informasi Kebaktian Peringatan",
     "locationName": "Mount Vernon Church of the Valley",
     "locationAddress": "8201 Greenback Ln, Fair Oaks, CA 95628",
-    "caLabel": "California",
+    "caLabel": "Sacramento (langsung)",
     "caDate": "Minggu, 19 Juli 2026",
     "caTime": "10.00 – 14.00 PST",
     "jakartaLabel": "Jakarta (zoom)",
