@@ -55,17 +55,16 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
               <span className="h-px w-16 bg-amber-500/70" />
             </div>
 
-            <p className="font-serif italic text-xl sm:text-2xl text-blue-900 mb-6">
+            <p className="font-serif italic text-xl sm:text-2xl text-blue-900 mb-8">
               {t.dates}
-            </p>
-
-            <p className="text-slate-700 text-base sm:text-lg leading-relaxed max-w-md mx-auto mb-8">
-              {t.intro}
             </p>
 
             {/* Service details card */}
             <div className="relative max-w-xl mx-auto rounded-xl overflow-hidden shadow-xl border border-amber-200 bg-gradient-to-b from-[#fdfbf5] to-amber-50">
               <div className="relative z-10 px-5 py-6 sm:px-8 text-center text-blue-950">
+                <h2 className="font-serif text-lg sm:text-xl font-bold text-blue-950 mb-4">
+                  {dict.service.detailsTitle}
+                </h2>
                 <a
                   href="https://www.google.com/maps/place/Mount+Vernon+Memorial+Park+%26+Mortuary/@38.6795943,-121.2585006,17z/data=!4m6!3m5!1s0x809ae09c7a3457ff:0xda89dbee85b13492!8m2!3d38.6804409!4d-121.2579606!16s%2Fg%2F1v_w2m35?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
