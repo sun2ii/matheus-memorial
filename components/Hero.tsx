@@ -62,49 +62,80 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
             {/* Service details card */}
             <div className="relative max-w-xl mx-auto rounded-xl overflow-hidden shadow-xl border border-amber-200 bg-gradient-to-b from-[#fdfbf5] to-amber-50">
               <div className="relative z-10 px-5 py-6 sm:px-8 text-center text-blue-950">
-                <h2 className="font-serif text-lg sm:text-xl font-bold text-blue-950 mb-4">
+                <h2 className="font-serif text-lg sm:text-xl font-bold text-blue-950 mb-1">
                   {dict.service.detailsTitle}
                 </h2>
-                <a
-                  href="https://www.google.com/maps/place/Mount+Vernon+Memorial+Park+%26+Mortuary/@38.6795943,-121.2585006,17z/data=!4m6!3m5!1s0x809ae09c7a3457ff:0xda89dbee85b13492!8m2!3d38.6804409!4d-121.2579606!16s%2Fg%2F1v_w2m35?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-serif text-lg sm:text-xl font-bold text-blue-800 underline underline-offset-2 hover:text-blue-600 transition-colors"
-                >
-                  {dict.service.locationName}
-                </a>
-                <p className="font-serif font-semibold mt-1">{dict.service.locationAddress}</p>
+                <p className="font-serif text-base sm:text-lg text-blue-900 mb-5">
+                  {dict.service.eventDate}
+                </p>
 
-                <div className="mt-5 flex items-center justify-center gap-6 sm:gap-10 font-serif">
-                  <div className="flex-1 space-y-0.5">
-                    <p>{dict.service.caLabel}</p>
-                    <p>{dict.service.caDate}</p>
-                    <p>{dict.service.caTime}</p>
-                  </div>
-                  <div className="flex-1 space-y-0.5">
-                    <p>{dict.service.jakartaLabel}</p>
-                    <p>{dict.service.jakartaDate}</p>
-                    <p>{dict.service.jakartaTime}</p>
-                  </div>
-                </div>
-
-                <div className="mt-5 text-sm">
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/zoom-icon.webp" alt="Zoom" className="h-6 w-auto" />
+                <div className="grid sm:grid-cols-2 gap-4 text-left font-serif">
+                  {/* In person */}
+                  <div className="rounded-lg border border-amber-200 bg-white/70 p-4">
+                    <div className="flex items-center gap-2 mb-2 text-amber-700">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 flex-shrink-0">
+                        <path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z" />
+                        <circle cx="12" cy="10" r="2.5" />
+                      </svg>
+                      <h3 className="font-bold text-blue-950">{dict.service.inPersonTitle}</h3>
+                    </div>
+                    <p className="font-bold text-blue-950">{dict.service.locationName}</p>
+                    <p className="text-sm text-slate-700 mt-0.5">{dict.service.locationAddress}</p>
                     <a
-                      href="https://us06web.zoom.us/j/83792442464?pwd=QaDZju7z990AcJaseeRDbzEITGNNQo.1"
+                      href="https://www.google.com/maps/place/Mount+Vernon+Memorial+Park+%26+Mortuary/@38.6795943,-121.2585006,17z/data=!4m6!3m5!1s0x809ae09c7a3457ff:0xda89dbee85b13492!8m2!3d38.6804409!4d-121.2579606!16s%2Fg%2F1v_w2m35?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors mt-1.5"
                     >
-                      {dict.service.zoomLinkLabel}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 flex-shrink-0">
+                        <path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z" />
+                        <circle cx="12" cy="10" r="2.5" />
+                      </svg>
+                      {dict.service.mapLinkLabel}
                     </a>
+                    <p className="text-sm font-semibold text-blue-950 mt-2">{dict.service.inPersonTime}</p>
                   </div>
-                  <p className="font-medium">{dict.service.meetingId}</p>
-                  <p className="font-medium">{dict.service.passcode}</p>
+
+                  {/* Online / livestream */}
+                  <div className="rounded-lg border border-blue-200 bg-white/70 p-4">
+                    <div className="flex items-center gap-2 mb-2 text-blue-700">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 flex-shrink-0">
+                        <rect x="2" y="6" width="13" height="12" rx="2" />
+                        <path d="M22 8l-5 4 5 4V8z" />
+                      </svg>
+                      <h3 className="font-bold text-blue-950">{dict.service.onlineTitle}</h3>
+                    </div>
+                    <p className="text-sm text-slate-700">{dict.service.onlineDesc}</p>
+                    <div className="flex items-center gap-2 mt-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src="/zoom-icon.webp" alt="Zoom" className="h-5 w-auto" />
+                      <a
+                        href="https://us06web.zoom.us/j/83792442464?pwd=QaDZju7z990AcJaseeRDbzEITGNNQo.1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold text-blue-700 underline underline-offset-2 hover:text-blue-500 transition-colors"
+                      >
+                        {dict.service.zoomLinkLabel}
+                      </a>
+                    </div>
+                    <p className="text-sm font-medium mt-1">{dict.service.meetingId}</p>
+                    <p className="text-sm font-medium">{dict.service.passcode}</p>
+                    <p className="text-xs text-slate-500 mt-2 leading-snug">{dict.service.onlineTzNote}</p>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* Celebration of life / attire note */}
+            <div className="max-w-xl mx-auto mt-5 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 px-6 py-4 text-center">
+              <p className="font-serif font-bold text-blue-950 mb-1 flex items-center justify-center gap-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth="2" className="w-5 h-5 flex-shrink-0" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                </svg>
+                {t.attireTitle}
+              </p>
+              <p className="text-sm text-slate-700 leading-relaxed">{t.attireNote}</p>
             </div>
           </div>
         </div>
