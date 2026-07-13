@@ -7,7 +7,6 @@ import { guestbookSchema } from '@/lib/validations';
 export async function submitGuestbookEntry(formData: FormData) {
   const data = {
     visitor_name: formData.get('visitor_name') as string,
-    visitor_email: formData.get('visitor_email') as string,
     message: formData.get('message') as string,
   };
 
@@ -22,7 +21,7 @@ export async function submitGuestbookEntry(formData: FormData) {
   try {
     await sql`
       INSERT INTO guestbook_entries (visitor_name, visitor_email, message)
-      VALUES (${validated.visitor_name}, ${validated.visitor_email || null}, ${validated.message})
+      VALUES (${validated.visitor_name}, ${null}, ${validated.message})
     `;
   } catch (error) {
     console.error('Database error:', error);

@@ -19,6 +19,7 @@
     "quote": "Do small things with great love.",
     "p3": "Sepanjang hidupnya, Matheus dikenal karena jiwanya yang murah hati dan kepiawaiannya menolong sesama. Ia memiliki kemampuan istimewa untuk melihat potensi dalam diri orang lain dan membuka jalan bagi mereka untuk berhasil. Baik melalui kebaikan yang tak bersuara maupun dorongan yang teguh, ia meninggalkan kesan yang tak terlupakan bagi orang-orang di sekitarnya. Ia hidup sepenuhnya, mengasihi sedalam-dalamnya, dan memegang teguh harapan di setiap momen yang mustahil.",
     "survivedBy": "Ia meninggalkan istri tercinta, Janti Gouw, dan ketiga anak mereka: Billy, Ben, dan Bella.",
+    "closing": "Warisan Matheus adalah tentang keberanian, belas kasih, dan kekuatan harapan yang mengubah keadaan bahkan di tengah kegelapan."
   },
   "story": {
     "timelineTitle": "Perjalanan Transplantasi Jantung & Semangat Juang Matheus",
@@ -50,15 +51,17 @@
     "captchaPrompt": "Pemeriksaan singkat:",
     "captchaPlaceholder": "Jawaban",
     "captchaContinue": "Lanjutkan",
-    "captchaWrong": "Jawaban salah. Silakan coba lagi."
+    "captchaWrong": "Jawaban salah. Silakan coba lagi.",
+    "uploaderPrompt": "Siapa yang mengunggah?",
+    "uploaderPlaceholder": "Nama Anda",
+    "uploaderContinue": "Lanjutkan",
+    "uploaderError": "Mohon masukkan nama Anda (minimal 2 karakter).",
+    "uploadedBy": "Diunggah oleh"
   },
   "guestbook": {
     "formTitle": "Bagikan Kenangan, Doa, atau Pesan Kasih",
     "nameLabel": "Nama",
     "namePlaceholder": "Nama lengkap Anda",
-    "emailLabel": "Email",
-    "emailOptional": "(opsional)",
-    "emailPlaceholder": "anda@contoh.com",
     "messageLabel": "Kenangan / Doa Anda",
     "messagePlaceholder": "Bagikan pikiran, kenangan, atau pesan Anda...",
     "reviewButton": "Tinjau Pesan",
@@ -71,7 +74,6 @@
     "listTitle": "Buku Tamu",
     "empty": "Jadilah yang pertama membagikan kenangan atau pesan kasih.",
     "errorName": "Mohon masukkan nama Anda",
-    "errorEmail": "Mohon masukkan alamat email yang valid",
     "errorMessage": "Mohon tulis setidaknya 10 karakter",
     "errorGeneric": "Mohon periksa pesan Anda dan coba lagi.",
     "errorSubmit": "Gagal mengirim pesan. Silakan coba lagi."

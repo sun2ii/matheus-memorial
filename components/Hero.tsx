@@ -55,12 +55,16 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
               <span className="h-px w-16 bg-amber-500/70" />
             </div>
 
-            <p className="font-serif italic text-xl sm:text-2xl text-blue-900 mb-8">
+            <p className="font-serif italic text-xl sm:text-2xl text-blue-900">
               {t.dates}
             </p>
+          </div>
+        </div>
 
-            {/* Service details card */}
-            <div className="relative max-w-xl mx-auto rounded-xl overflow-hidden shadow-xl border border-amber-200 bg-gradient-to-b from-[#fdfbf5] to-amber-50">
+        {/* Service details card — full width below the portrait/title so the
+            two columns have room to breathe */}
+        <div className="mt-12 md:mt-16">
+          <div className="relative max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl border border-amber-200 bg-gradient-to-b from-[#fdfbf5] to-amber-50">
               <div className="relative z-10 px-5 py-6 sm:px-8 text-center text-blue-950">
                 <h2 className="font-serif text-lg sm:text-xl font-bold text-blue-950 mb-1">
                   {dict.service.detailsTitle}
@@ -79,8 +83,8 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
                       </svg>
                       <h3 className="font-bold text-blue-950">{dict.service.inPersonTitle}</h3>
                     </div>
-                    <p className="font-bold text-blue-950">{dict.service.locationName}</p>
-                    <p className="text-sm text-slate-700 mt-0.5">{dict.service.locationAddress}</p>
+                    <p className="text-sm font-bold text-blue-950">{dict.service.locationName}</p>
+                    <p className="text-xs text-slate-700 mt-0.5">{dict.service.locationAddress}</p>
                     <a
                       href="https://www.google.com/maps/place/Mount+Vernon+Memorial+Park+%26+Mortuary/@38.6795943,-121.2585006,17z/data=!4m6!3m5!1s0x809ae09c7a3457ff:0xda89dbee85b13492!8m2!3d38.6804409!4d-121.2579606!16s%2Fg%2F1v_w2m35?entry=ttu&g_ep=EgoyMDI2MDcwNy4wIKXMDSoASAFQAw%3D%3D"
                       target="_blank"
@@ -120,14 +124,13 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
                     </div>
                     <p className="text-sm font-medium mt-1">{dict.service.meetingId}</p>
                     <p className="text-sm font-medium">{dict.service.passcode}</p>
-                    <p className="text-xs text-slate-500 mt-2 leading-snug">{dict.service.onlineTzNote}</p>
+                    <p className="text-[11px] text-slate-500 mt-2 leading-snug">{dict.service.onlineTzNote}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 }

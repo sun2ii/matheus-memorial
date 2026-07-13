@@ -2,8 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { formatDate } from '@/lib/formatting';
+import type { Locale } from '@/lib/i18n';
+import type { PhotoMetadata } from '@/lib/drive';
 
-type Photo = { src: string; fullSrc?: string; alt: string };
+type Photo = { src: string; fullSrc?: string; alt: string; metadata?: PhotoMetadata };
 
 type Strings = {
   photoAlt: string;
@@ -13,13 +16,12 @@ type Strings = {
   uploading: string;
   uploadSuccess: string;
   uploadError: string;
-  captchaPrompt: string;
-  captchaPlaceholder: string;
-  captchaContinue: string;
-  captchaWrong: string;
+  uploaderPrompt: string;
+  uploaderPlaceholder: string;
+  uploaderContinue: string;
+  uploaderError: string;
+  uploadedBy: string;
 };
-
-type Challenge = { question: string; token: string };
 
 function ArrowButton({
   direction,
@@ -44,16 +46,27 @@ function ArrowButton({
   );
 }
 
-export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Strings }) {
+export default function GalleryCarousel({
+  photos,
+  locale,
+  t,
+}: {
+  photos: Photo[];
+  locale: Locale;
+  t: Strings;
+}) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const [uploading, setUploading] = useState(false);
-  const [notice, setNotice] = useState<'success' | 'error' | 'wrong-captcha' | null>(null);
-  const [challenge, setChallenge] = useState<Challenge | null>(null);
-  const [answer, setAnswer] = useState('');
+  const [uploadProgress, setUploadProgress] = useState<{ done: number; total: number } | null>(null);
+  const [notice, setNotice] = useState<'success' | 'error' | null>(null);
+  const [showUploadForm, setShowUploadForm] = useState(false);
+  const [uploaderName, setUploaderName] = useState('');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [view, setView] = useState<'carousel' | 'grid'>('carousel');
+  const pausedRef = useRef(false);
 
   const handleImageLoad = (index: number) => {
     setLoadedImages((prev) => {
@@ -105,19 +118,26 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [lightboxIndex]);
 
-  async function handleUploadClick() {
+  // Auto-advance the carousel. Pauses while the lightbox is open, the grid
+  // view is active, the user is hovering/touching the strip, or there aren't
+  // enough photos to scroll.
+  useEffect(() => {
+    if (view !== 'carousel' || lightboxIndex !== null || photos.length <= 1) return;
+    const id = setInterval(() => {
+      if (!pausedRef.current) scroll('right');
+    }, 3500);
+    return () => clearInterval(id);
+  }, [view, lightboxIndex, photos.length]);
+
+  function handleUploadClick() {
     setNotice(null);
-    setAnswer('');
-    setChallenge({ question: '', token: 'passphrase' });
+    setUploaderName('');
+    setShowUploadForm(true);
   }
 
-  function handlePassphraseSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleUploaderSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const passphrase = answer.trim().toLowerCase();
-    if (passphrase !== 'love to mamat') {
-      setNotice('wrong-captcha');
-      return;
-    }
+    if (uploaderName.trim().length < 2) return;
     inputRef.current?.click();
   }
 
@@ -175,83 +195,166 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
   }
 
   async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
+    const files = Array.from(event.target.files ?? []);
     event.target.value = '';
-    if (!file) return;
+    if (files.length === 0) return;
 
     setNotice(null);
     setUploading(true);
-    try {
-      // Compress the image before upload
-      const compressedFile = await compressImage(file);
+    setUploadProgress({ done: 0, total: files.length });
 
-      const formData = new FormData();
-      formData.append('file', compressedFile);
-      formData.append('passphrase', answer); // server verifies this too
-      const res = await fetch('/api/upload', { method: 'POST', body: formData });
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText || `Upload failed with status ${res.status}`);
+    let succeeded = 0;
+    // Upload sequentially so each request stays under Vercel's body cap and
+    // we don't hammer the Drive API in parallel.
+    for (const file of files) {
+      try {
+        const compressedFile = await compressImage(file);
+
+        const formData = new FormData();
+        formData.append('file', compressedFile);
+        formData.append('uploader_name', uploaderName.trim()); // server validates this too
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        if (!res.ok) {
+          const errorText = await res.text();
+          throw new Error(errorText || `Upload failed with status ${res.status}`);
+        }
+        succeeded += 1;
+      } catch (err) {
+        console.error('Upload error:', err);
+      } finally {
+        setUploadProgress((prev) => (prev ? { ...prev, done: prev.done + 1 } : prev));
       }
-      setChallenge(null);
-      setAnswer('');
-      setNotice('success');
-      router.refresh();
-
-      // Auto-dismiss success message after 5 seconds
-      setTimeout(() => {
-        setNotice(null);
-      }, 5000);
-    } catch (err) {
-      console.error('Upload error:', err);
-      setNotice('error');
-    } finally {
-      setUploading(false);
     }
+
+    setUploading(false);
+    setUploadProgress(null);
+
+    if (succeeded > 0) {
+      setShowUploadForm(false);
+      setUploaderName('');
+      router.refresh();
+    }
+
+    // Show error only if nothing made it through; a partial success still
+    // reads as success so the user knows their photos are coming.
+    if (succeeded === 0) {
+      setNotice('error');
+    } else {
+      setNotice('success');
+      setTimeout(() => setNotice(null), 5000);
+    }
+  }
+
+  function renderTile(photo: Photo, index: number, wrapperClass: string) {
+    return (
+      <div
+        key={photo.src}
+        onClick={() => setLightboxIndex(index)}
+        className={wrapperClass}
+      >
+        {!loadedImages.has(index) && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-100 via-slate-100 to-blue-50">
+            <div className="w-8 h-8 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
+          </div>
+        )}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          loading={index < 4 ? 'eager' : 'lazy'}
+          fetchPriority={index < 4 ? 'high' : 'auto'}
+          onLoad={() => handleImageLoad(index)}
+          ref={(el) => {
+            // Cached images can finish loading before React attaches
+            // onLoad (e.g. on refresh) — check directly so the
+            // spinner always clears.
+            if (el?.complete && el.naturalWidth > 0) handleImageLoad(index);
+          }}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
   }
 
   return (
     <div className="max-w-6xl mx-auto">
       {photos.length > 0 ? (
-        <div className="flex items-center gap-3 sm:gap-4">
-          <ArrowButton direction="left" onClick={() => scroll('left')} label="Scroll photos left" />
-
-          <div
-            ref={stripRef}
-            className="flex-1 flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {photos.map((photo, index) => (
-              <div
-                key={photo.src}
-                onClick={() => setLightboxIndex(index)}
-                className="relative flex-shrink-0 w-64 sm:w-80 aspect-square snap-start rounded-xl overflow-hidden bg-white border border-blue-100 shadow-md cursor-pointer hover:shadow-xl hover:scale-105 transition-all"
+        <>
+          <div className="flex justify-end mb-4">
+            <div className="inline-flex rounded-lg border border-blue-200 bg-white p-0.5 shadow-sm">
+              <button
+                type="button"
+                onClick={() => setView('carousel')}
+                aria-label="Horizontal view"
+                aria-pressed={view === 'carousel'}
+                className={`flex items-center justify-center w-9 h-9 rounded-md transition-colors ${
+                  view === 'carousel'
+                    ? 'bg-blue-950 text-blue-50'
+                    : 'text-blue-950 hover:bg-blue-50'
+                }`}
               >
-                {!loadedImages.has(index) && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-100 via-slate-100 to-blue-50">
-                    <div className="w-8 h-8 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
-                  </div>
-                )}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  loading={index < 4 ? 'eager' : 'lazy'}
-                  fetchPriority={index < 4 ? 'high' : 'auto'}
-                  onLoad={() => handleImageLoad(index)}
-                  ref={(el) => {
-                    // Cached images can finish loading before React attaches
-                    // onLoad (e.g. on refresh) — check directly so the
-                    // spinner always clears.
-                    if (el?.complete && el.naturalWidth > 0) handleImageLoad(index);
-                  }}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+                  <rect x="3" y="7" width="6" height="10" rx="1" />
+                  <rect x="11" y="7" width="6" height="10" rx="1" />
+                  <path d="M20 9v6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => setView('grid')}
+                aria-label="Grid view"
+                aria-pressed={view === 'grid'}
+                className={`flex items-center justify-center w-9 h-9 rounded-md transition-colors ${
+                  view === 'grid'
+                    ? 'bg-blue-950 text-blue-50'
+                    : 'text-blue-950 hover:bg-blue-50'
+                }`}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+                  <rect x="4" y="4" width="7" height="7" rx="1" />
+                  <rect x="13" y="4" width="7" height="7" rx="1" />
+                  <rect x="4" y="13" width="7" height="7" rx="1" />
+                  <rect x="13" y="13" width="7" height="7" rx="1" />
+                </svg>
+              </button>
+            </div>
           </div>
 
-          <ArrowButton direction="right" onClick={() => scroll('right')} label="Scroll photos right" />
-        </div>
+          {view === 'carousel' ? (
+            <div className="flex items-center gap-3 sm:gap-4">
+              <ArrowButton direction="left" onClick={() => scroll('left')} label="Scroll photos left" />
+
+              <div
+                ref={stripRef}
+                onMouseEnter={() => (pausedRef.current = true)}
+                onMouseLeave={() => (pausedRef.current = false)}
+                onTouchStart={() => (pausedRef.current = true)}
+                onTouchEnd={() => (pausedRef.current = false)}
+                className="flex-1 flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {photos.map((photo, index) =>
+                  renderTile(
+                    photo,
+                    index,
+                    'relative flex-shrink-0 w-64 sm:w-80 aspect-square snap-start rounded-xl overflow-hidden bg-white border border-blue-100 shadow-md cursor-pointer hover:shadow-xl hover:scale-105 transition-all'
+                  )
+                )}
+              </div>
+
+              <ArrowButton direction="right" onClick={() => scroll('right')} label="Scroll photos right" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {photos.map((photo, index) =>
+                renderTile(
+                  photo,
+                  index,
+                  'relative aspect-square rounded-xl overflow-hidden bg-white border border-blue-100 shadow-md cursor-pointer hover:shadow-xl hover:scale-105 transition-all'
+                )
+              )}
+            </div>
+          )}
+        </>
       ) : (
         <div className="max-w-xl mx-auto aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-100 via-slate-100 to-blue-50 border border-blue-100 shadow-sm flex items-center justify-center">
           <div className="text-center px-6">
@@ -277,31 +380,35 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
           ref={inputRef}
           type="file"
           accept="image/*"
+          multiple
           onChange={handleFileChange}
           className="hidden"
         />
-        {challenge && !uploading ? (
+        {showUploadForm && !uploading ? (
           <form
-            onSubmit={handlePassphraseSubmit}
+            onSubmit={handleUploaderSubmit}
             className="inline-flex flex-col sm:flex-row items-center gap-3"
           >
-            <label htmlFor="upload-passphrase" className="text-sm text-blue-950">
-              Type <span className="font-semibold">&ldquo;love to mamat&rdquo;</span> to continue
+            <label htmlFor="uploader-name" className="text-sm text-blue-950">
+              {t.uploaderPrompt}
             </label>
             <input
-              id="upload-passphrase"
+              id="uploader-name"
               type="text"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              placeholder="love to mamat"
+              value={uploaderName}
+              onChange={(e) => setUploaderName(e.target.value)}
+              placeholder={t.uploaderPlaceholder}
               autoFocus
+              required
+              minLength={2}
               className="w-40 px-4 py-2 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 text-sm text-center"
             />
             <button
               type="submit"
-              className="bg-blue-950 hover:bg-blue-900 text-blue-50 text-sm font-medium px-5 py-2 rounded-lg shadow transition-colors"
+              disabled={uploaderName.trim().length < 2}
+              className="bg-blue-950 hover:bg-blue-900 disabled:bg-blue-900/50 disabled:cursor-not-allowed text-blue-50 text-sm font-medium px-5 py-2 rounded-lg shadow transition-colors"
             >
-              Continue
+              {t.uploaderContinue}
             </button>
           </form>
         ) : (
@@ -313,7 +420,9 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
           >
             {uploading ? (
               <>
-                {t.uploading}
+                {uploadProgress && uploadProgress.total > 1
+                  ? `${t.uploading} ${uploadProgress.done}/${uploadProgress.total}`
+                  : t.uploading}
                 <div className="relative w-4 h-4">
                   <div className="absolute inset-0 border-2 border-blue-300/30 rounded-full" />
                   <div className="absolute inset-0 border-2 border-blue-50 border-t-transparent rounded-full animate-spin" />
@@ -335,9 +444,6 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
         )}
         {notice === 'error' && (
           <p className="text-sm text-red-700 mt-3">{t.uploadError}</p>
-        )}
-        {notice === 'wrong-captcha' && (
-          <p className="text-sm text-red-700 mt-3">Wrong passphrase. Please try again.</p>
         )}
       </div>
 
@@ -390,6 +496,22 @@ export default function GalleryCarousel({ photos, t }: { photos: Photo[]; t: Str
             onClick={(e) => e.stopPropagation()}
             className="max-w-full max-h-full object-contain"
           />
+
+          {/* Uploader metadata — only for photos that have a DB record */}
+          {photos[lightboxIndex].metadata && (
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="absolute bottom-16 left-1/2 -translate-x-1/2 text-center text-white bg-black/60 backdrop-blur-sm px-4 py-2 rounded-lg max-w-[90vw]"
+            >
+              <p className="text-sm">
+                {t.uploadedBy}{' '}
+                <span className="font-semibold">{photos[lightboxIndex].metadata!.uploader_name}</span>
+              </p>
+              <p className="text-xs text-white/80 mt-0.5">
+                {formatDate(photos[lightboxIndex].metadata!.created_at, locale)}
+              </p>
+            </div>
+          )}
 
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/50 px-4 py-2 rounded-full">
             {lightboxIndex + 1} / {photos.length}

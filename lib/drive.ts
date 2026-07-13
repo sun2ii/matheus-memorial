@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { unstable_cache } from 'next/cache';
+import { sql } from '@/lib/db';
 
 export const DRIVE_FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID ?? '';
 
@@ -24,6 +25,15 @@ export function getDrive() {
 
 export type GalleryPhoto = { id: string; name: string };
 
+export type PhotoMetadata = {
+  uploader_name: string;
+  created_at: Date;
+};
+
+export type PhotoWithMetadata = GalleryPhoto & {
+  metadata?: PhotoMetadata; // Optional — legacy photos have no DB row
+};
+
 async function fetchGalleryPhotos(): Promise<GalleryPhoto[]> {
   if (!DRIVE_FOLDER_ID) return [];
   try {
@@ -45,11 +55,37 @@ async function fetchGalleryPhotos(): Promise<GalleryPhoto[]> {
   }
 }
 
-// Cache the Drive listing for 60s so the page doesn't hit the Drive API
-// on every visit. New uploads appear within a minute.
+// Join the Drive listing with uploader metadata from the database. Legacy
+// photos with no DB row simply come back without a `metadata` field.
+async function fetchPhotoMetadata(fileIds: string[]): Promise<Map<string, PhotoMetadata>> {
+  if (fileIds.length === 0) return new Map();
+  try {
+    const rows = (await sql`
+      SELECT drive_file_id, uploader_name, created_at
+      FROM uploaded_photos
+      WHERE drive_file_id = ANY(${fileIds})
+    `) as Array<{ drive_file_id: string; uploader_name: string; created_at: Date }>;
+
+    return new Map(
+      rows.map((r) => [r.drive_file_id, { uploader_name: r.uploader_name, created_at: r.created_at }])
+    );
+  } catch (error) {
+    console.error('Failed to fetch photo metadata:', error);
+    return new Map();
+  }
+}
+
+async function fetchGalleryPhotosWithMetadata(): Promise<PhotoWithMetadata[]> {
+  const photos = await fetchGalleryPhotos();
+  const metadataMap = await fetchPhotoMetadata(photos.map((p) => p.id));
+  return photos.map((photo) => ({ ...photo, metadata: metadataMap.get(photo.id) }));
+}
+
+// Cache the Drive listing + metadata for 60s so the page doesn't hit the Drive
+// API or DB on every visit. New uploads appear within a minute.
 export const GALLERY_CACHE_TAG = 'gallery-photos';
 
-export const listGalleryPhotos = unstable_cache(fetchGalleryPhotos, [GALLERY_CACHE_TAG], {
+export const listGalleryPhotos = unstable_cache(fetchGalleryPhotosWithMetadata, [GALLERY_CACHE_TAG], {
   revalidate: 60,
   tags: [GALLERY_CACHE_TAG],
 });

@@ -45,12 +45,12 @@ export default async function Home() {
           </section>
         }
       >
-        <PhotoGallery dict={dict} />
+        <PhotoGallery dict={dict} locale={locale} />
       </Suspense>
 
       {/* Guestbook */}
       <section id="guestbook" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-start">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-stretch">
           <GuestbookForm dict={dict.guestbook} />
           <Suspense fallback={<GuestbookSkeleton />}>
             <GuestbookMessages locale={locale} dict={dict} />

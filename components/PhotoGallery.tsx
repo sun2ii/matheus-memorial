@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import GalleryCarousel from '@/components/GalleryCarousel';
 import { listGalleryPhotos, drivePhotoUrl } from '@/lib/drive';
-import type { Dict } from '@/lib/i18n';
+import type { Dict, Locale } from '@/lib/i18n';
 
 function getLocalPhotos(): string[] {
   try {
@@ -17,7 +17,7 @@ function getLocalPhotos(): string[] {
   }
 }
 
-export default async function PhotoGallery({ dict }: { dict: Dict }) {
+export default async function PhotoGallery({ dict, locale }: { dict: Dict; locale: Locale }) {
   const t = dict.gallery;
 
   const drivePhotos = await listGalleryPhotos();
@@ -28,6 +28,7 @@ export default async function PhotoGallery({ dict }: { dict: Dict }) {
       src: drivePhotoUrl(p.id, 640),
       fullSrc: drivePhotoUrl(p.id, 1600),
       alt: t.photoAlt,
+      metadata: p.metadata,
     })),
   ];
 
@@ -45,6 +46,7 @@ export default async function PhotoGallery({ dict }: { dict: Dict }) {
 
         <GalleryCarousel
           photos={photos}
+          locale={locale}
           t={{
             photoAlt: t.photoAlt,
             comingSoon: t.comingSoon,
@@ -53,10 +55,11 @@ export default async function PhotoGallery({ dict }: { dict: Dict }) {
             uploading: t.uploading,
             uploadSuccess: t.uploadSuccess,
             uploadError: t.uploadError,
-            captchaPrompt: t.captchaPrompt,
-            captchaPlaceholder: t.captchaPlaceholder,
-            captchaContinue: t.captchaContinue,
-            captchaWrong: t.captchaWrong,
+            uploaderPrompt: t.uploaderPrompt,
+            uploaderPlaceholder: t.uploaderPlaceholder,
+            uploaderContinue: t.uploaderContinue,
+            uploaderError: t.uploaderError,
+            uploadedBy: t.uploadedBy,
           }}
         />
       </div>

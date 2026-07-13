@@ -9,7 +9,6 @@ type GuestbookDict = Dict['guestbook'];
 
 type ReviewData = {
   visitor_name: string;
-  visitor_email: string;
   message: string;
 };
 
@@ -35,7 +34,6 @@ export default function GuestbookForm({ dict }: { dict: GuestbookDict }) {
     const formData = new FormData(event.currentTarget);
     const data = {
       visitor_name: (formData.get('visitor_name') as string) ?? '',
-      visitor_email: (formData.get('visitor_email') as string) ?? '',
       message: (formData.get('message') as string) ?? '',
     };
 
@@ -46,11 +44,9 @@ export default function GuestbookForm({ dict }: { dict: GuestbookDict }) {
       setError(
         field === 'visitor_name'
           ? dict.errorName
-          : field === 'visitor_email'
-            ? dict.errorEmail
-            : field === 'message'
-              ? dict.errorMessage
-              : dict.errorGeneric
+          : field === 'message'
+            ? dict.errorMessage
+            : dict.errorGeneric
       );
       return;
     }
@@ -64,7 +60,6 @@ export default function GuestbookForm({ dict }: { dict: GuestbookDict }) {
 
     const formData = new FormData();
     formData.set('visitor_name', review.visitor_name);
-    formData.set('visitor_email', review.visitor_email);
     formData.set('message', review.message);
 
     startTransition(async () => {
@@ -81,7 +76,7 @@ export default function GuestbookForm({ dict }: { dict: GuestbookDict }) {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-blue-100">
+    <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-blue-100 flex flex-col h-full">
       <h3 className="font-serif text-2xl text-blue-950 text-center mb-1">{dict.formTitle}</h3>
       <div className="flex justify-center mb-6">
         <span className="w-1.5 h-1.5 rotate-45 bg-amber-500" />
@@ -105,9 +100,6 @@ export default function GuestbookForm({ dict }: { dict: GuestbookDict }) {
 
             <div className="bg-[#fdfbf5] border border-amber-200 rounded-lg p-5 max-h-60 overflow-y-auto">
               <p className="font-medium text-blue-950">{review.visitor_name}</p>
-              {review.visitor_email && (
-                <p className="text-sm text-slate-500">{review.visitor_email}</p>
-              )}
               <p className="mt-3 text-slate-700 whitespace-pre-wrap">{review.message}</p>
             </div>
 
@@ -142,42 +134,25 @@ export default function GuestbookForm({ dict }: { dict: GuestbookDict }) {
         </div>
       )}
 
-      <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-        <div className="grid sm:grid-cols-2 gap-5">
-          {/* Name */}
-          <div>
-            <label htmlFor="visitor_name" className="block text-sm font-medium text-slate-700 mb-2">
-              {dict.nameLabel} <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="visitor_name"
-              name="visitor_name"
-              required
-              disabled={isPending}
-              className="block w-full px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 placeholder:text-slate-400 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
-              placeholder={dict.namePlaceholder}
-            />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label htmlFor="visitor_email" className="block text-sm font-medium text-slate-700 mb-2">
-              {dict.emailLabel} <span className="text-slate-400 text-xs">{dict.emailOptional}</span>
-            </label>
-            <input
-              type="email"
-              id="visitor_email"
-              name="visitor_email"
-              disabled={isPending}
-              className="block w-full px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 placeholder:text-slate-400 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
-              placeholder={dict.emailPlaceholder}
-            />
-          </div>
+      <form ref={formRef} onSubmit={handleSubmit} className="space-y-5 flex flex-col flex-1">
+        {/* Name */}
+        <div>
+          <label htmlFor="visitor_name" className="block text-sm font-medium text-slate-700 mb-2">
+            {dict.nameLabel} <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="visitor_name"
+            name="visitor_name"
+            required
+            disabled={isPending}
+            className="block w-full px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 placeholder:text-slate-400 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors"
+            placeholder={dict.namePlaceholder}
+          />
         </div>
 
-        {/* Message */}
-        <div>
+        {/* Message — grows to fill remaining height so the card matches the guestbook */}
+        <div className="flex flex-col flex-1">
           <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
             {dict.messageLabel} <span className="text-red-500">*</span>
           </label>
@@ -187,7 +162,7 @@ export default function GuestbookForm({ dict }: { dict: GuestbookDict }) {
             required
             disabled={isPending}
             rows={5}
-            className="block w-full px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 placeholder:text-slate-400 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors resize-none"
+            className="block w-full flex-1 min-h-[120px] px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none bg-white text-gray-900 placeholder:text-slate-400 disabled:bg-gray-100 disabled:cursor-not-allowed transition-colors resize-none"
             placeholder={dict.messagePlaceholder}
           />
         </div>

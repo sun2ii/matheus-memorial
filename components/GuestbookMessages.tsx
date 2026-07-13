@@ -1,10 +1,10 @@
 import { sql } from '@/lib/db';
 import type { Dict, Locale } from '@/lib/i18n';
+import { formatDate } from '@/lib/formatting';
 
 interface GuestbookEntry {
   id: string;
   visitor_name: string;
-  visitor_email: string | null;
   message: string;
   created_at: Date;
 }
@@ -12,7 +12,7 @@ interface GuestbookEntry {
 async function getGuestbookEntries(): Promise<GuestbookEntry[]> {
   try {
     const result = await sql`
-      SELECT id, visitor_name, visitor_email, message, created_at
+      SELECT id, visitor_name, message, created_at
       FROM guestbook_entries
       ORDER BY created_at DESC
     `;
@@ -21,53 +21,6 @@ async function getGuestbookEntries(): Promise<GuestbookEntry[]> {
     console.error('Failed to fetch guestbook entries:', error);
     return [];
   }
-}
-
-function formatDate(date: Date | string, locale: Locale): string {
-  // Database returns UTC timestamp - convert to target timezone
-  const timezone = locale === 'id' ? 'Asia/Jakarta' : 'America/Los_Angeles';
-
-  // The created_at column is TIMESTAMP (no time zone) storing UTC wall-clock
-  // time. The Neon driver parses it as a *local-time* Date, so we must
-  // reinterpret its wall-clock components as UTC to get the true instant.
-  let timestamp: Date;
-  if (typeof date === 'string') {
-    // e.g. "2026-07-10 03:25:00.123" -> "2026-07-10T03:25:00.123Z"
-    let iso = date.trim().replace(' ', 'T');
-    if (/[+-]\d{2}$/.test(iso)) iso += ':00'; // Postgres "+00" -> "+00:00"
-    const hasZone = /(?:Z|[+-]\d{2}:?\d{2})$/.test(iso);
-    timestamp = new Date(hasZone ? iso : iso + 'Z');
-  } else {
-    timestamp = new Date(
-      Date.UTC(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        date.getSeconds(),
-        date.getMilliseconds()
-      )
-    );
-  }
-
-  // Format with timezone conversion
-  const dateStr = timestamp.toLocaleDateString(locale === 'id' ? 'id-ID' : 'en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-    timeZone: timezone,
-  });
-
-  const timeStr = timestamp.toLocaleTimeString(locale === 'id' ? 'id-ID' : 'en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: timezone,
-  });
-
-  const tzLabel = locale === 'id' ? 'WIB 🇮🇩' : 'PST 🇺🇸';
-  return `${dateStr} at ${timeStr} ${tzLabel}`;
 }
 
 function HeartBadge() {
@@ -101,7 +54,7 @@ export default async function GuestbookMessages({
       {entries.length === 0 ? (
         <p className="text-slate-500 text-center py-10 italic">{dict.guestbook.empty}</p>
       ) : (
-        <div className="space-y-4 max-h-[560px] overflow-y-auto pr-2">
+        <div className="space-y-4 max-h-[340px] overflow-y-auto pr-2">
           {entries.map((entry) => (
             <div
               key={entry.id}

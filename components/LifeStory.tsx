@@ -41,7 +41,6 @@ export default function LifeStory({ dict }: { dict: Dict }) {
             </blockquote>
 
             <p>{o.p3}</p>
-            <p>{o.p4}</p>
           </div>
 
           {/* Survived by */}

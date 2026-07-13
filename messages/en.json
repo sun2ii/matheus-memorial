@@ -51,15 +51,17 @@
     "captchaPrompt": "Quick check:",
     "captchaPlaceholder": "Answer",
     "captchaContinue": "Continue",
-    "captchaWrong": "Wrong answer. Please try again."
+    "captchaWrong": "Wrong answer. Please try again.",
+    "uploaderPrompt": "Who is uploading?",
+    "uploaderPlaceholder": "Your name",
+    "uploaderContinue": "Continue",
+    "uploaderError": "Please enter your name (at least 2 characters).",
+    "uploadedBy": "Uploaded by"
   },
   "guestbook": {
     "formTitle": "Share a Memory, Prayer, or Message of Love",
     "nameLabel": "Name",
     "namePlaceholder": "Your full name",
-    "emailLabel": "Email",
-    "emailOptional": "(optional)",
-    "emailPlaceholder": "you@example.com",
     "messageLabel": "Your Memory / Prayer",
     "messagePlaceholder": "Share your thoughts, memories, or message...",
     "reviewButton": "Review Message",
@@ -72,7 +74,6 @@
     "listTitle": "Guestbook",
     "empty": "Be the first to share a memory or message of love.",
     "errorName": "Please enter your name",
-    "errorEmail": "Please enter a valid email address",
     "errorMessage": "Please write at least 10 characters",
     "errorGeneric": "Please check your message and try again.",
     "errorSubmit": "Failed to submit message. Please try again."
