@@ -99,8 +99,9 @@
     "inPersonTime": "10:00am – 14:00am PST",
     "onlineTitle": "Ikuti siaran langsung",
     "onlineDesc": "Tidak dapat hadir langsung? Semua orang dipersilakan bergabung melalui Zoom secara langsung.",
-    "onlineTzNote": "Indonesia: Senin, 20 Juli · 00:00am – 04:00am WIB",
-    "mapLinkLabel": "Google Maps"
+    "onlineTzNote": "Indonesia: Senin, 20 Juli · 00.00 – 02.30 WIB",
+    "mapLinkLabel": "Google Maps",
+    "usaTzNote": "AS: 10.00 – 12.30 PST"
   },
   "footer": {
     "inLovingMemoryOf": "Dalam Kenangan Penuh Kasih",
@@ -113,5 +114,36 @@
     "brief": "Memorial ini merayakan kehidupan Matheus Basuni (25 Februari 1960 - 6 Juli 2026)",
     "chooseLanguage": "Pilih bahasa Anda",
     "continueButton": "Lanjutkan ke memorial"
+  },
+  "agenda": {
+    "title": "Susunan Acara",
+    "intro": "Panduan acara hari itu, agar Anda dapat mengikuti seluruhnya — atau cukup momen-momen yang paling berarti bagi Anda.",
+    "tzNote": "Semua waktu ditampilkan dalam Waktu Pasifik (PST).",
+    "items": [
+      {
+        "time": "10.00",
+        "label": "Rosario & Kerahiman Ilahi"
+      },
+      {
+        "time": "10.45",
+        "label": "Salam pembuka, doa, persembahan lagu, pembacaan Kitab Suci & berbagi"
+      },
+      {
+        "time": "11.25",
+        "label": "Kata kenangan (eulogi)"
+      },
+      {
+        "time": "12.00",
+        "label": "Tayangan slide"
+      },
+      {
+        "time": "12.15",
+        "label": "Doa penutup"
+      },
+      {
+        "time": "12.20",
+        "label": "Berkumpul & ramah tamah (hingga 14.00)"
+      }
+    ]
   }
 }

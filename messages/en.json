@@ -99,8 +99,9 @@
     "inPersonTime": "10:00 AM – 2:00 PM PST",
     "onlineTitle": "Join the livestream",
     "onlineDesc": "Can't be there in person? Everyone is welcome to join us live on Zoom.",
-    "onlineTzNote": "Indonesia: Monday, July 20 · 12:00 AM – 4:00 AM WIB",
-    "mapLinkLabel": "Google Maps"
+    "onlineTzNote": "Indonesia: Monday, July 20 · 12:00 AM – 2:30 AM WIB",
+    "mapLinkLabel": "Google Maps",
+    "usaTzNote": "USA: 10:00 AM – 12:30 PM PST"
   },
   "footer": {
     "inLovingMemoryOf": "In Loving Memory of",
@@ -113,5 +114,36 @@
     "brief": "This memorial celebrates the life of Matheus Basuni (February 25, 1960 - July 6, 2026)",
     "chooseLanguage": "Choose your language",
     "continueButton": "Continue to the memorial"
+  },
+  "agenda": {
+    "title": "Order of Service",
+    "intro": "A guide to the day, so you can join for all of it — or simply for the moments that mean the most to you.",
+    "tzNote": "All times shown in Pacific Time (PST).",
+    "items": [
+      {
+        "time": "10:00 AM",
+        "label": "Rosary & Divine Mercy"
+      },
+      {
+        "time": "10:45 AM",
+        "label": "Salutation, prayers, song tributes, scripture reading & sharing"
+      },
+      {
+        "time": "11:25 AM",
+        "label": "Eulogy tributes"
+      },
+      {
+        "time": "12:00 PM",
+        "label": "Slideshow"
+      },
+      {
+        "time": "12:15 PM",
+        "label": "Closing prayer"
+      },
+      {
+        "time": "12:20 PM",
+        "label": "Gather & repass (until 2:00 PM)"
+      }
+    ]
   }
 }
