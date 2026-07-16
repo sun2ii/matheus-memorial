@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import Hero from '@/components/Hero';
+import ServiceAgenda from '@/components/ServiceAgenda';
 import ServiceDetails from '@/components/ServiceDetails';
 import LifeStory from '@/components/LifeStory';
 import PhotoGallery from '@/components/PhotoGallery';
@@ -26,6 +27,9 @@ export default async function Home() {
     <div className="min-h-screen">
       {/* Hero */}
       <Hero locale={locale} dict={dict} />
+
+      {/* Order of service / agenda */}
+      <ServiceAgenda dict={dict} />
 
       {/* Life story + timeline */}
       <LifeStory dict={dict} />
