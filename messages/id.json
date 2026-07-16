@@ -18,14 +18,14 @@
     "p2Lead": "Sepanjang perjalanannya — yang diwarnai berbagai komplikasi yang mengancam jiwa dan tak terhitung momen ketika harapan tampak mustahil — Matheus mewujudkan semangat yang tercermin dalam kata-kata kesukaannya:",
     "quote": "Do small things with great love.",
     "p3": "Sepanjang hidupnya, Matheus dikenal karena jiwanya yang murah hati dan kepiawaiannya menolong sesama. Ia memiliki kemampuan istimewa untuk melihat potensi dalam diri orang lain dan membuka jalan bagi mereka untuk berhasil. Baik melalui kebaikan yang tak bersuara maupun dorongan yang teguh, ia meninggalkan kesan yang tak terlupakan bagi orang-orang di sekitarnya. Ia hidup sepenuhnya, mengasihi sedalam-dalamnya, dan memegang teguh harapan di setiap momen yang mustahil.",
-    "survivedBy": "Ia meninggalkan istri tercinta, Janti Gouw, dan ketiga anak mereka: Billy, Ben, dan Bella.",
+    "survivedBy": "Ia meninggalkan istri tercinta, Janti, dan ketiga anak mereka: Billy, Ben, dan Bella.",
     "closing": "Warisan Matheus adalah tentang keberanian, belas kasih, dan kekuatan harapan yang mengubah keadaan bahkan di tengah kegelapan."
   },
   "story": {
     "timelineTitle": "Perjalanan Transplantasi Jantung & Semangat Juang Matheus",
     "timelineIntro": "Perjalanan Matheus melewati gagal jantung ditandai oleh ketangguhan luar biasa dan momen-momen yang bagi banyak orang tampak sebagai mukjizat. Meski menghadapi berbagai komplikasi yang mengancam nyawa dan berkali-kali dinyatakan bahwa kondisinya tidak dapat disembuhkan, tekadnya untuk terus berjuang menjadi cerminan dirinya yang sesungguhnya. Seorang pribadi yang hidup sepenuhnya, mengasihi dengan mendalam, dan berpegang pada harapan di setiap saat yang mustahil.",
     "t2018Title": "2018 – Kesempatan Kedua untuk Hidup",
-    "t2018Body": "Setelah mengalami komplikasi jantung di usia akhir 50-an, Matheus mengalami serangan jantung tanpa gejala dan dirawat di Unit Gawat Darurat serta Unit Perawatan Intensif pada Juni 2018 dalam kondisi kritis.\n\nIa menjalani operasi jantung terbuka dan menerima Left Ventricular Assist Device (LVAD) — pompa mekanis yang membantu jantungnya yang melemah mengalirkan darah sembari menunggu transplantasi. Lima bulan kemudian, ia menerima anugerah luar biasa berupa jantung dari seorang donor berusia 20 tahun dan menjalani operasi jantung terbuka kedua.",
+    "t2018Body": "Setelah mengalami komplikasi jantung di usia 58, Matheus mengalami serangan jantung tanpa gejala dan dirawat di Unit Gawat Darurat serta Unit Perawatan Intensif pada Juni 2018 dalam kondisi kritis.\n\nIa menjalani operasi jantung terbuka dan menerima Left Ventricular Assist Device (LVAD) — pompa mekanis yang membantu jantungnya yang melemah mengalirkan darah sembari menunggu transplantasi. Lima bulan kemudian, ia menerima anugerah luar biasa berupa jantung dari seorang donor berusia 20 tahun dan menjalani operasi jantung terbuka kedua.",
     "t2018Strong": "Pada 22 Juli 2018, Matheus berhasil menjalani transplantasi jantung di UCSF dan memulai babak kehidupan yang sepenuhnya baru.",
     "t2024Title": "2024 – Bertahan dari yang Mustahil",
     "t2024Body": "Saat mengunjungi keluarga dan sahabat di Los Angeles, Matheus mengalami penolakan akut terhadap jantung transplannya pada Juni 2024.\n\nDi ICU, ia mengalami henti jantung. Jantungnya berhenti selama 26 menit, namun melawan segala kemungkinan, ia bertahan hidup.\n\nDalam keadaan belum sadar, ia diterbangkan kembali ke UCSF, menjalani perawatan intensif selama berminggu-minggu, dan akhirnya pulih hingga dapat kembali ke rumah.",
@@ -98,10 +98,10 @@
     "inPersonTitle": "Hadir langsung",
     "inPersonTime": "10:00am – 14:00am PST",
     "onlineTitle": "Ikuti siaran langsung",
-    "onlineDesc": "Tidak dapat hadir langsung? Semua orang dipersilakan bergabung melalui Zoom secara langsung.",
+    "onlineDesc": "Tidak dapat hadir langsung? Semua orang dipersilakan bergabung melalui Zoom.",
     "onlineTzNote": "Indonesia: Senin, 20 Juli · 00.00 – 02.30 WIB",
     "mapLinkLabel": "Google Maps",
-    "usaTzNote": "AS: 10.00 – 12.30 PST"
+    "usaTzNote": "USA: 10.00 – 12.30 PST"
   },
   "footer": {
     "inLovingMemoryOf": "Dalam Kenangan Penuh Kasih",
@@ -122,19 +122,19 @@
     "items": [
       {
         "time": "10.00",
-        "label": "Rosario & Kerahiman Ilahi"
+        "label": "Rosario & Divine Mercy"
       },
       {
         "time": "10.45",
-        "label": "Salam pembuka, doa, persembahan lagu, pembacaan Kitab Suci & berbagi"
+        "label": "Salam pembuka, doa, persembahan lagu, pembacaan Kitab Suci & sharing"
       },
       {
         "time": "11.25",
-        "label": "Kata kenangan (eulogi)"
+        "label": "Kata2 kenangan (eulogi)"
       },
       {
         "time": "12.00",
-        "label": "Tayangan slide"
+        "label": "Slideshow"
       },
       {
         "time": "12.15",
@@ -142,7 +142,7 @@
       },
       {
         "time": "12.20",
-        "label": "Berkumpul & ramah tamah (hingga 14.00)"
+        "label": "In Person - Berkumpul & ramah tamah (hingga 14.00)"
       }
     ]
   }
