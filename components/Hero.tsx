@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import type { Dict, Locale } from '@/lib/i18n';
+import FuneralCountdown from './FuneralCountdown';
+import TimeSincePassing from './TimeSincePassing';
 
 export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
   const t = dict.hero;
@@ -59,6 +61,7 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
             <p className="font-serif italic text-xl sm:text-2xl text-blue-900">
               {t.dates}
             </p>
+            <TimeSincePassing />
           </div>
         </div>
 
@@ -69,9 +72,12 @@ export default function Hero({ locale, dict }: { locale: Locale; dict: Dict }) {
               <h2 className="font-serif text-lg sm:text-xl font-bold text-blue-950 mb-1">
                 {dict.service.detailsTitle}
               </h2>
-              <p className="font-serif text-base sm:text-lg text-blue-900 mb-5">
+              <p className="font-serif text-base sm:text-lg text-blue-900 mb-3">
                 {dict.service.eventDate}
               </p>
+              <div className="mb-5">
+                <FuneralCountdown />
+              </div>
 
               <div className="grid sm:grid-cols-2 gap-4 text-left font-serif">
                 {/* In person */}

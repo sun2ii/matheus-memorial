@@ -38,6 +38,9 @@ export default async function PhotoGallery({ dict, locale }: { dict: Dict; local
         <h2 className="font-serif text-3xl sm:text-4xl text-blue-950 text-center mb-2">
           {t.title}
         </h2>
+        <div className="flex justify-center mb-1">
+          <span className="text-xs text-slate-400">{photos.length}</span>
+        </div>
         <div className="flex items-center justify-center gap-2 mb-12">
           <span className="h-px w-10 bg-amber-400" />
           <span className="w-1.5 h-1.5 rotate-45 bg-amber-500" />

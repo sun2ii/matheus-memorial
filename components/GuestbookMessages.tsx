@@ -44,6 +44,11 @@ export default async function GuestbookMessages({
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-blue-100">
+      <div className="flex items-start justify-end mb-2">
+        <span className="text-xs text-slate-400">
+          {entries.length}
+        </span>
+      </div>
       <h3 className="font-serif text-2xl text-blue-950 text-center mb-1">
         {dict.guestbook.listTitle}
       </h3>
