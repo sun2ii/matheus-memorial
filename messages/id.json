@@ -8,7 +8,8 @@
   },
   "hero": {
     "celebrating": "Merayakan Kehidupan",
-    "dates": "25 Februari 1960 – 6 Juli 2026"
+    "dates": "25 Februari 1960 – 6 Juli 2026",
+    "legacyLine": "Suami, ayah, dan sahabat tercinta yang warisan kasihnya akan hidup selamanya. Beristirahatlah dalam damai."
   },
   "obituary": {
     "eyebrow": "Dalam Kenangan Penuh Kasih",
@@ -114,6 +115,9 @@
     "brief": "Memorial ini merayakan kehidupan Matheus Basuni (25 Februari 1960 - 6 Juli 2026)",
     "chooseLanguage": "Pilih bahasa Anda",
     "continueButton": "Lanjutkan ke memorial"
+  },
+  "tribute": {
+    "title": "Momen yang Akan Selalu Kami Kenang"
   },
   "agenda": {
     "title": "Susunan Acara",

@@ -7,8 +7,9 @@
     "donations": "Donations"
   },
   "hero": {
-    "celebrating": "Celebrating the Life of",
-    "dates": "February 25, 1960 – July 6, 2026"
+    "celebrating": "Until we meet again",
+    "dates": "February 25, 1960 – July 6, 2026",
+    "legacyLine": "A beloved husband, father, and friend whose legacy of love will live forever. Rest in peace."
   },
   "obituary": {
     "eyebrow": "In Loving Memory",
@@ -22,7 +23,7 @@
     "closing": "Matheus' legacy is one of courage, compassion, and the transformative power of maintaining hope in the face of darkness."
   },
   "story": {
-    "timelineTitle": "The journey of Matheus’ Heart Transplant & Fighting Spirit",
+    "timelineTitle": "The Journey of Matheus’ Heart Transplant & Fighting Spirit",
     "timelineIntro": "Matheus’ journey through heart failure was marked by extraordinary resilience and what many would consider miraculous moments. Despite facing multiple life-threatening complications and being told on many occasions that his condition was terminal, his determination to keep fighting became a reflection of the man he was. A person who lived life fully, loved deeply, and held onto hope through every impossible moment.",
     "t2018Title": "2018 – A Second Chance at Life",
     "t2018Body": "After developing heart complications at 58, Matheus suffered a silent heart attack and was admitted to the Emergency Room and Intensive Care Unit in June 2018 in critical condition.\n\nHe underwent open-heart surgery and received a Left Ventricular Assist Device (LVAD) — a mechanical pump that helped his failing heart circulate blood while he awaited a transplant. Five months later, he received the incredible gift of a 20-year-old donor heart and underwent a second open-heart surgery.",
@@ -114,6 +115,9 @@
     "brief": "This memorial celebrates the life of Matheus Basuni (February 25, 1960 - July 6, 2026)",
     "chooseLanguage": "Choose your language",
     "continueButton": "Continue to the memorial"
+  },
+  "tribute": {
+    "title": "Moments We'll Always Remember"
   },
   "agenda": {
     "title": "Order of Service",
