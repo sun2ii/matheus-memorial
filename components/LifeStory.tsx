@@ -29,7 +29,7 @@ export default function LifeStory({ dict }: { dict: Dict }) {
             <span className="w-2 h-2 rotate-45 bg-amber-500" />
           </div>
 
-          <div className="space-y-5 text-slate-700 leading-relaxed">
+          <div className="space-y-5 text-slate-700 leading-relaxed text-center">
             <p>{o.p1}</p>
             <p>{o.p2Lead}</p>
 

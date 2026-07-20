@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const duckedForVideoRef = useRef(false);
 
   useEffect(() => {
     // Listen for start music event from welcome modal
@@ -16,8 +17,34 @@ export default function MusicPlayer() {
       }
     };
 
+    // Duck the music only if it was actually playing when the video started —
+    // if the visitor had already muted it, leave that choice alone.
+    const handleVideoPlaying = () => {
+      const audio = audioRef.current;
+      if (audio && !audio.paused) {
+        duckedForVideoRef.current = true;
+        audio.pause();
+      }
+    };
+
+    // Only resume music that we ourselves paused for the video — never
+    // override a manual mute the visitor made independently.
+    const handleVideoPaused = () => {
+      const audio = audioRef.current;
+      if (audio && duckedForVideoRef.current) {
+        duckedForVideoRef.current = false;
+        audio.play().catch(() => setIsPlaying(false));
+      }
+    };
+
     window.addEventListener('startMusic', handleStartMusic);
-    return () => window.removeEventListener('startMusic', handleStartMusic);
+    window.addEventListener('tributeVideoPlaying', handleVideoPlaying);
+    window.addEventListener('tributeVideoPaused', handleVideoPaused);
+    return () => {
+      window.removeEventListener('startMusic', handleStartMusic);
+      window.removeEventListener('tributeVideoPlaying', handleVideoPlaying);
+      window.removeEventListener('tributeVideoPaused', handleVideoPaused);
+    };
   }, []);
 
   const togglePlay = () => {
