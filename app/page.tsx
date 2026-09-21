@@ -28,8 +28,19 @@ export default async function Home() {
       {/* Hero */}
       <Hero locale={locale} dict={dict} />
 
-      {/* Video tribute */}
-      <VideoTribute dict={dict} />
+      {/* Video tribute (YouTube slideshow + Drive videos carousel) */}
+      <Suspense
+        fallback={
+          <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#fbfcfe]">
+            <div className="max-w-4xl mx-auto animate-pulse">
+              <div className="h-8 bg-blue-100 rounded w-64 mx-auto mb-8" />
+              <div className="w-full aspect-video rounded-2xl bg-blue-100" />
+            </div>
+          </section>
+        }
+      >
+        <VideoTribute dict={dict} />
+      </Suspense>
 
       {/* Life story + timeline */}
       <LifeStory dict={dict} />

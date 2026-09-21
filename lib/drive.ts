@@ -3,6 +3,7 @@ import { unstable_cache } from 'next/cache';
 import { sql } from '@/lib/db';
 
 export const DRIVE_FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID ?? '';
+export const DRIVE_VIDEO_FOLDER_ID = process.env.GOOGLE_DRIVE_VIDEO_FOLDER_ID ?? '';
 
 function getCredentials(): { client_email: string; private_key: string } {
   const email = process.env.GOOGLE_CLIENT_EMAIL;
@@ -92,4 +93,44 @@ export const listGalleryPhotos = unstable_cache(fetchGalleryPhotosWithMetadata, 
 
 export function drivePhotoUrl(id: string, width?: number): string {
   return width ? `/api/photos/${id}?w=${width}` : `/api/photos/${id}`;
+}
+
+// --- Video functions ---
+
+export type GalleryVideo = { id: string; name: string };
+
+async function fetchGalleryVideos(): Promise<GalleryVideo[]> {
+  if (!DRIVE_VIDEO_FOLDER_ID) return [];
+  try {
+    const drive = getDrive();
+    const res = await drive.files.list({
+      q: `'${DRIVE_VIDEO_FOLDER_ID}' in parents and mimeType contains 'video/' and trashed = false`,
+      fields: 'files(id, name)',
+      orderBy: 'createdTime desc',
+      pageSize: 50,
+      supportsAllDrives: true,
+      includeItemsFromAllDrives: true,
+    });
+    return (res.data.files ?? []).flatMap((f) =>
+      f.id ? [{ id: f.id, name: f.name ?? 'video' }] : []
+    );
+  } catch (error) {
+    console.error('Failed to list gallery videos:', error);
+    return [];
+  }
+}
+
+export const VIDEO_CACHE_TAG = 'gallery-videos';
+
+export const listGalleryVideos = unstable_cache(fetchGalleryVideos, [VIDEO_CACHE_TAG], {
+  revalidate: 60,
+  tags: [VIDEO_CACHE_TAG],
+});
+
+export function driveVideoUrl(id: string): string {
+  return `/api/videos/${id}`;
+}
+
+export function driveVideoThumbnailUrl(id: string): string {
+  return `/api/videos/${id}/thumbnail`;
 }
