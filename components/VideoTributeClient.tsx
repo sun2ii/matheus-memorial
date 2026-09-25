@@ -1,24 +1,34 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { Dict } from '@/lib/i18n';
-import type { Video } from './VideoTribute';
 import { eulogySections } from '@/lib/eulogy';
 
-const YOUTUBE_VIDEO_ID = 'Gz3_GaaAT68';
+// YouTube video IDs
+const YOUTUBE_DAD_TRIBUTE_1 = { id: '36hRInmORJk', title: "Dad's Tribute" };
+const YOUTUBE_DAD_TRIBUTE_2 = { id: 'gqUEH1do5jE', title: "Dad's Tribute #2" };
+const YOUTUBE_SLIDESHOW = { id: 'Gz3_GaaAT68', title: 'Memorial Slideshow' };
+const YOUTUBE_BENS_EULOGY = { id: 'LYYPcmTlfSc', title: "Ben's Eulogy" };
+const YOUTUBE_MOMS_EULOGY = { id: '8hoPHCAxlm0', title: "Mom's Eulogy" };
 
-type YTPlayerState = { PLAYING: number; PAUSED: number; ENDED: number };
-type YTPlayerInstance = { destroy?: () => void };
-type YTNamespace = {
-  Player: new (elementId: string, options: Record<string, unknown>) => YTPlayerInstance;
-  PlayerState: YTPlayerState;
-};
+// Piano tribute videos
+const PIANO_VIDEOS = [
+  { id: 'uUQAnunPIYw', title: 'Raise Me Up' },
+  { id: 'NLnHu9GpBF8', title: 'Monsters' },
+  { id: 'm1Rg8DNLEdg', title: 'What a Wonderful World' },
+];
 
-declare global {
-  interface Window {
-    YT?: YTNamespace;
-    onYouTubeIframeAPIReady?: () => void;
-  }
+function SectionHeader({ title }: { title: string }) {
+  return (
+    <>
+      <h2 className="font-serif text-2xl sm:text-3xl text-blue-950 text-center mb-2">
+        {title}
+      </h2>
+      <div className="flex justify-center mb-8">
+        <span className="w-2 h-2 rotate-45 bg-amber-500" />
+      </div>
+    </>
+  );
 }
 
 function ArrowButton({
@@ -44,211 +54,131 @@ function ArrowButton({
   );
 }
 
-type AllVideo = { type: 'youtube'; id: string; title: string } | { type: 'drive'; video: Video };
-
-export default function VideoTributeClient({ dict, videos }: { dict: Dict; videos: Video[] }) {
+export default function VideoTributeClient({ dict }: { dict: Dict }) {
   const t = dict.tribute;
-  const playerRef = useRef<YTPlayerInstance | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [tributeIndex, setTributeIndex] = useState(0);
   const [showEulogy, setShowEulogy] = useState(false);
   const [openSection, setOpenSection] = useState<number | null>(null);
 
-  // Combine YouTube + Drive videos into one list
-  // Order: Dad's Tribute (1), Dad's Tribute #2 (2), Memorial Slideshow (3), then rest (4+)
-  const driveVideosWithOrder = videos as (Video & { order: number })[];
-  const beforeYoutube = driveVideosWithOrder.filter((v) => v.order < 3);
-  const afterYoutube = driveVideosWithOrder.filter((v) => v.order >= 3);
-
-  const allVideos: AllVideo[] = [
-    ...beforeYoutube.map((v) => ({ type: 'drive' as const, video: v })),
-    { type: 'youtube', id: YOUTUBE_VIDEO_ID, title: 'Memorial Slideshow' },
-    ...afterYoutube.map((v) => ({ type: 'drive' as const, video: v })),
+  // Tribute section: All YouTube now
+  const tributeVideos = [
+    YOUTUBE_DAD_TRIBUTE_1,
+    YOUTUBE_DAD_TRIBUTE_2,
+    YOUTUBE_SLIDESHOW,
   ];
 
-  // YouTube player setup
-  useEffect(() => {
-    let cancelled = false;
-
-    function createPlayer() {
-      if (cancelled || !window.YT) return;
-      playerRef.current = new window.YT.Player(`youtube-player-${currentIndex}`, {
-        events: {
-          onStateChange: (event: { data: number }) => {
-            if (!window.YT) return;
-            if (event.data === window.YT.PlayerState.PLAYING) {
-              window.dispatchEvent(new Event('tributeVideoPlaying'));
-            } else if (
-              event.data === window.YT.PlayerState.PAUSED ||
-              event.data === window.YT.PlayerState.ENDED
-            ) {
-              window.dispatchEvent(new Event('tributeVideoPaused'));
-            }
-          },
-        },
-      });
-    }
-
-    if (window.YT && window.YT.Player) {
-      createPlayer();
-    } else {
-      if (!document.getElementById('youtube-iframe-api-script')) {
-        const tag = document.createElement('script');
-        tag.id = 'youtube-iframe-api-script';
-        tag.src = 'https://www.youtube.com/iframe_api';
-        document.head.appendChild(tag);
-      }
-      const previousReady = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => {
-        previousReady?.();
-        createPlayer();
-      };
-    }
-
-    return () => {
-      cancelled = true;
-      playerRef.current?.destroy?.();
-    };
-  }, [currentIndex]);
-
-  function goNext() {
-    setCurrentIndex((currentIndex + 1) % allVideos.length);
-  }
-
-  function goPrev() {
-    setCurrentIndex(currentIndex === 0 ? allVideos.length - 1 : currentIndex - 1);
-  }
-
-  // Keyboard navigation for lightbox and eulogy modal
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (showEulogy) setShowEulogy(false);
-        else if (lightboxIndex !== null) setLightboxIndex(null);
-      }
-      if (lightboxIndex === null) return;
-      if (e.key === 'ArrowLeft') {
-        setLightboxIndex(lightboxIndex === 0 ? videos.length - 1 : lightboxIndex - 1);
-      }
-      if (e.key === 'ArrowRight') {
-        setLightboxIndex((lightboxIndex + 1) % videos.length);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxIndex, videos.length, showEulogy]);
-
-  const current = allVideos[currentIndex];
-  const currentTitle = current.type === 'youtube' ? current.title : current.video.title;
-  const isVertical = current.type === 'drive' && current.video.isVertical;
-  const isBensEulogy = currentTitle === "Ben's Eulogy";
-
-  // Preload all Drive videos on mount
-  useEffect(() => {
-    allVideos.forEach((v) => {
-      if (v.type === 'drive') {
-        const video = document.createElement('video');
-        video.preload = 'auto';
-        video.src = v.video.src;
-        video.load();
-      }
-    });
-  }, []);
+  const currentTribute = tributeVideos[tributeIndex];
 
   return (
-    <section id="tribute" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#fbfcfe]">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-3xl text-blue-950 text-center mb-2">
-          {t.title}
-        </h2>
-        <div className="flex justify-center mb-8">
-          <span className="w-2 h-2 rotate-45 bg-amber-500" />
-        </div>
+    <>
+      {/* Section 1: Tribute */}
+      <section id="tribute" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#fbfcfe]">
+        <div className="max-w-4xl mx-auto">
+          <SectionHeader title={t.title} />
 
-        {/* Video Carousel */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          <ArrowButton direction="left" onClick={goPrev} label="Previous video" />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <ArrowButton
+              direction="left"
+              onClick={() => setTributeIndex(tributeIndex === 0 ? tributeVideos.length - 1 : tributeIndex - 1)}
+              label="Previous video"
+            />
 
-          <div className="flex-1 flex justify-center">
-            <div className={`relative rounded-2xl overflow-hidden shadow-xl border border-blue-100 bg-black ${
-              isVertical
-                ? 'h-[70vh] aspect-[9/16]'
-                : 'w-full aspect-video'
-            }`}>
-              {current.type === 'youtube' ? (
+            <div className="flex-1 flex justify-center">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-blue-100 bg-black w-full aspect-video">
                 <iframe
-                  key={`youtube-${currentIndex}`}
-                  id={`youtube-player-${currentIndex}`}
+                  key={`tribute-yt-${tributeIndex}`}
                   className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube-nocookie.com/embed/${current.id}?enablejsapi=1`}
-                  title={current.title}
+                  src={`https://www.youtube-nocookie.com/embed/${currentTribute.id}`}
+                  title={currentTribute.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 />
-              ) : (
-                <video
-                  key={current.video.id}
-                  className="absolute inset-0 w-full h-full object-contain"
-                  src={current.video.src}
-                  poster={current.video.poster}
-                  controls
-                  preload="metadata"
-                />
-              )}
+              </div>
             </div>
-          </div>
 
-          <ArrowButton direction="right" onClick={goNext} label="Next video" />
-        </div>
-
-        {/* Video title and position */}
-        <div className="flex flex-col items-center mt-4 gap-1">
-          <h3 className="text-lg font-serif text-blue-950 text-center">{currentTitle}</h3>
-          <span className="text-xs text-slate-400">
-            {currentIndex + 1} of {allVideos.length}
-          </span>
-          {isBensEulogy && (
-            <button
-              type="button"
-              onClick={() => setShowEulogy(true)}
-              className="mt-3 px-4 py-2 text-sm font-medium text-blue-950 bg-white border border-blue-200 rounded-full shadow-sm hover:bg-blue-50 hover:shadow-md transition-all"
-            >
-              Read Eulogy
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Drive Video Lightbox Modal (for when clicking from thumbnails if we add them later) */}
-      {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setLightboxIndex(null)}
-        >
-          <button
-            onClick={() => setLightboxIndex(null)}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
-            aria-label="Close"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-4xl aspect-video"
-          >
-            <video
-              key={videos[lightboxIndex].id}
-              className="w-full h-full rounded-lg"
-              src={videos[lightboxIndex].src}
-              controls
-              autoPlay
+            <ArrowButton
+              direction="right"
+              onClick={() => setTributeIndex((tributeIndex + 1) % tributeVideos.length)}
+              label="Next video"
             />
           </div>
+
+          <div className="flex flex-col items-center mt-4 gap-1">
+            <h3 className="text-lg font-serif text-blue-950 text-center">{currentTribute.title}</h3>
+            <span className="text-xs text-slate-400">
+              {tributeIndex + 1} of {tributeVideos.length}
+            </span>
+          </div>
         </div>
-      )}
+      </section>
+
+      {/* Section 2: Music Dedication */}
+      <section id="music" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader title="Music Dedication" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            {PIANO_VIDEOS.map((vid) => (
+              <div key={vid.id} className="flex flex-col items-center">
+                <div className="relative rounded-xl overflow-hidden shadow-lg border border-blue-100 bg-black aspect-[9/16] w-full max-w-[280px]">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube-nocookie.com/embed/${vid.id}`}
+                    title={vid.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+                <span className="mt-3 text-sm text-slate-600 text-center font-medium">{vid.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Eulogy - Side by side */}
+      <section id="eulogy" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#fbfcfe]">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader title="Eulogies" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            {/* Ben's Eulogy - YouTube */}
+            <div className="flex flex-col items-center">
+              <div className="relative rounded-xl overflow-hidden shadow-lg border border-blue-100 bg-black aspect-[9/16] w-full max-w-[320px]">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_BENS_EULOGY.id}`}
+                  title={YOUTUBE_BENS_EULOGY.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <span className="mt-3 text-sm text-slate-600 text-center font-medium">{YOUTUBE_BENS_EULOGY.title}</span>
+              <button
+                type="button"
+                onClick={() => setShowEulogy(true)}
+                className="mt-2 px-4 py-2 text-sm font-medium text-blue-950 bg-white border border-blue-200 rounded-full shadow-sm hover:bg-blue-50 hover:shadow-md transition-all"
+              >
+                Read Eulogy
+              </button>
+            </div>
+
+            {/* Mom's Eulogy - YouTube */}
+            <div className="flex flex-col items-center">
+              <div className="relative rounded-xl overflow-hidden shadow-lg border border-blue-100 bg-black aspect-[9/16] w-full max-w-[320px]">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_MOMS_EULOGY.id}`}
+                  title={YOUTUBE_MOMS_EULOGY.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <span className="mt-3 text-sm text-slate-600 text-center font-medium">{YOUTUBE_MOMS_EULOGY.title}</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Eulogy Modal */}
       {showEulogy && (
@@ -306,6 +236,6 @@ export default function VideoTributeClient({ dict, videos }: { dict: Dict; video
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }

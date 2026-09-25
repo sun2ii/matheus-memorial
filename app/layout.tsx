@@ -127,6 +127,17 @@ function Footer({ dict }: { dict: Dict }) {
           </div>
         </div>
         <p className="text-center text-xs text-blue-300/70 mt-8">{dict.footer.rights}</p>
+        <p className="text-center text-xs text-blue-300/50 mt-2">
+          Built by{' '}
+          <a
+            href="https://binary1702.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-200/70 hover:text-white transition-colors"
+          >
+            Binary 1702
+          </a>
+        </p>
       </div>
     </footer>
   );
